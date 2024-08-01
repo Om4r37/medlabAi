@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block tabNo %}0{% endblock %}
+
+{% block main %}
+    hi {{ username }}
+    <form action="/submit_user_info" method="post">
+        <!-- Hidden field to carry the username and password if needed -->
+        <input type="hidden" name="username" value="USERNAME">
+        <input type="hidden" name="password" value="PASSWORD">
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="0" required><br>
+
+        <label for="gender">Gender:</label>
+        <input type="radio" id="male" name="gender" value="1">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="0">
+        <label for="female">Female</label><br>
+
+        <label for="height_cm">Height (cm):</label>
+        <input type="number" id="height_cm" name="height_cm" min="0"><br>
+
+        <label for="weight_g">Weight (g):</label>
+        <input type="number" id="weight_g" name="weight_g" min="0"><br>
+
+        <label for="married">Married:</label>
+        <input type="checkbox" id="married" name="married" value="1"><br>
+
+        <label for="work">Work (e.g., occupation code):</label>
+        <input type="number" id="work" name="work" min="0"><br>
+
+        <label for="residence">Residence:</label>
+        <input type="checkbox" id="residence" name="residence" value="1"><br>
+
+        <label for="smoke">Smoking Status (e.g., 0 = Non-smoker, 1 = Smoker):</label>
+        <input type="number" id="smoke" name="smoke" min="0" max="1"><br>
+
+        <label for="pregnancies">Number of Pregnancies:</label>
+        <input type="number" id="pregnancies" name="pregnancies" min="0"><br>
+
+        <label for="cp">Chest Pain Type (e.g., 0 to 3):</label>
+        <input type="number" id="cp" name="cp" min="0" max="3"><br>
+
+        <label for="exng">Exercise Induced Angina:</label>
+        <input type="checkbox" id="exng" name="exng" value="1"><br>
+
+        <label for="heart_disease">Heart Disease:</label>
+        <input type="checkbox" id="heart_disease" name="heart_disease" value="1"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
