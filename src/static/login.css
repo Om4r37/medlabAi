@@ -67,12 +67,3 @@
   .signup-link a {
     text-decoration: underline;
   }
-
-  /* @media (max-width: 668px) {
-    .form {
-      max-width: 100%;
-    }
-    .input-container input {
-      width: 85%;
-    }
-  } */

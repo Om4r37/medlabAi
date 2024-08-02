@@ -95,12 +95,10 @@ main {
     #flash {
         width: 80vw;
         left: 5vw;
+        top: 55px;
     }
     main {
         margin-top: 5px;
-    }
-    #flash {
-        top: 55px;
     }
     .navbar {
         flex-direction: column;
