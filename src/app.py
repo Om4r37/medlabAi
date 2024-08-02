@@ -64,7 +64,7 @@ def register():
     )[0]
     session["user_id"] = user["id"]
     session["user_name"] = user["username"]
-    flash("Created Account Successfully!")
+    flash("Account Created Successfully!")
     return redirect("/")
 
 

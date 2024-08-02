@@ -5,15 +5,18 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/login" method="post">
-        <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="username" placeholder="Username" type="text">
-        </div>
-        <div class="mb-3">
-            <input class="form-control mx-auto w-auto" name="password" placeholder="Password" type="password">
-        </div>
-        <button class="btn btn-primary" type="submit">Log In</button>
+    <link href="/static/login.css" rel="stylesheet">
+    <form class="form" action="/login" method="post">
+        <p class="form-title">Sign in to your account</p>
+        <input autocomplete="off" autofocus name="username" placeholder="Enter username" type="text">
+        <input name="password" placeholder="Enter password" type="password">
+        <button type="submit" class="submit">
+         Sign in
+        </button>
+ 
+        <p class="signup-link">
+         No account?
+         <a href="/register">Sign up</a>
+        </p>
     </form>
-    <br>
-    <a href="/register">Create Account</a>
 {% endblock %}
