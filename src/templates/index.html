@@ -4,10 +4,10 @@
     Home
 {% endblock %}
 
-{% block tabNo %}0{% endblock %}
+{% set tab = 0 %}
 
 {% block main %}
-    hi {{ username }}
+    <!-- hi {{ username }} -->
     <form action="/submit_user_info" method="post">
         <!-- Hidden field to carry the username and password if needed -->
         <input type="hidden" name="username" value="USERNAME">

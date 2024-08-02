@@ -3,13 +3,9 @@ body {
     font-family: Arial, sans-serif;
     padding: 20px 0;
 }
-a {
-    color: black;
-}
 main {
     padding: 85px 30px;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    text-align: center;
 }
 .alert-primary {
     display: flex;
@@ -23,6 +19,8 @@ main {
     background-color: transparent;
     border: none;
     border-radius: 7px;
+    margin-left: 5px;
+    padding: 5px 5px;
 }
 #close:hover {
     background-color: rgba(63, 63, 63, 0.1);
@@ -36,6 +34,7 @@ main {
     position: fixed !important;
     top: 0;
     width: 100vw;
+    left: -20px;
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     display: flex;
@@ -48,21 +47,25 @@ main {
 #flash {
     position: fixed;
     top: 65px;
-    width: 100vw;
+    width: 50vw;
+    left: 20vw;
     border-radius: 15px;
+    background-color: #cfe2ff;
+    border: 1px solid #9ec5fe;
+    padding: 10px 15px;
 }
 .navbar-logo {
     font-size: 24px;
     width: initial;
-    margin-left: 14px;
 }
 .highlight {
     background-color: #30303094;
 }
 .logout {
+    text-decoration: none;
+    color: white;
     font-size: 14px;
     width: initial;
-    margin-right: 10px;
     border-radius: 15px;
     padding: 4px 12px;
 }
@@ -86,8 +89,13 @@ main {
 }
 .navbar-tab span {
     margin-right: 8px;
+    font-size: large;
 }
 @media (max-width: 668px) {
+    #flash {
+        width: 80vw;
+        left: 5vw;
+    }
     main {
         margin-top: 5px;
     }

@@ -1,3 +1,4 @@
 *.db
+flask_session/
 src/__pycache__/
 src/flask_session/
