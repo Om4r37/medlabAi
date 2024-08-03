@@ -12,9 +12,9 @@
         <div class="navbar-logo">🧪 Title</div>
         {% if session["user_id"] %}
             <ul class="navbar-tabs">
-                <li class="navbar-tab">ℹ️ Information</li>
-                <li class="navbar-tab">🗓️ Appointments</li>
-                <li class="navbar-tab">📄 Results</li>
+                <a class="navbar-tab" href="/">ℹ️ Information</a>
+                <a class="navbar-tab" href="/appointments">🗓️ Appointments</a>
+                <a class="navbar-tab" href="/results">📄 Results</a>
             </ul>
             <a class="logout" href="/logout">Log Out</a>
         {% endif %}
@@ -22,9 +22,9 @@
     {% if session["user_id"] %}
         <div class="center">
             <div class="tab-bar">
-                <div class="navbar-tab"><span>ℹ️</span>Information</div>
-                <div class="navbar-tab"><span>🗓️</span>Appointments</div>
-                <div class="navbar-tab"><span>📄</span>Results</div>
+                <a class="navbar-tab" href="/"><span>ℹ️</span>Information</a>
+                <a class="navbar-tab" href="/appointments"><span>🗓️</span>Appointments</a>
+                <a class="navbar-tab" href="/results"><span>📄</span>Results</a>
             </div>
         </div>
     {% endif %}

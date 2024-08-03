@@ -13,21 +13,6 @@ test type
 search
 
 # data:
-account information:
-- [x] id
-- [x] username
-- [x] age
-- [x] gender
-- [x] hight
-- [x] weight
-- [x] married
-- [x] work
-- [x] Residence
-- [x] smoking
-- [x] Pregnancies
-- [x] chestpain
-- [x] heart_disease
-- [x] exng
 
 1- pima indians:
 - glucose
