@@ -28,7 +28,19 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():
-    return render_template("index.html", username=session["user_name"])
+    return render_template("index.html")
+
+
+@app.route("/appointments")
+@login_required
+def appointments():
+    return render_template("appointments.html")
+
+
+@app.route("/results")
+@login_required
+def appointments():
+    return render_template("results.html")
 
 
 @app.route("/register", methods=["GET", "POST"])

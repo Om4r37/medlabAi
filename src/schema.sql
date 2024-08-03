@@ -9,11 +9,11 @@ CREATE TABLE users (
     hight_cm INTEGER,
     weight_g INTEGER,
     married boolean,
-    work INTEGER,
-    residence boolean,
-    smoke INTEGER,
+    work INTEGER, -- stroke (private, self-employed, gov, children, never worked) 
+    residence boolean, -- urban or rural
+    smoke INTEGER, -- 0: unknown, 1: never, 2: former, 3: current
     pregnancies INTEGER,
-    cp INTEGER,
+    cp INTEGER, -- 1: typical angina, 2: atypical angina, 3: non-anginal pain, 4: asymptomatic
     exng boolean,
     heart_disease boolean
 );

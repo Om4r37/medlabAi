@@ -1,0 +1,26 @@
+form {
+    background-color: #fff;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3rem 0;
+    width: 50%;
+    max-width: 500px;
+    min-width: 285px;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.form-control {
+    padding: .375rem .75rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: .4rem;
+    border: 1px solid #ced4da;
+}
+form div {
+    width: fit-content;
+    margin: auto;
+    text-align: left;
+}
+form div *{
+    margin: 8px 0;
+}
