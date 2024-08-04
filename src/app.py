@@ -34,8 +34,8 @@ def index():
     if request.method == "GET":
         user_info = db.execute("SELECT * FROM users WHERE id = ?;", session["user_id"])
         user_info = user_info[0] if user_info else {}
-        print(user_info)
-        return render_template("index.html", user_info=user_info)
+        return render_template("index.html", user_info=user_info, current_year=current_year)
+
     for i in ("birth_year", "hight", "weight", "pregnancies"):
         value = request.form.get(i)
         if value and value != "":
