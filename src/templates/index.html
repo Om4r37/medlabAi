@@ -7,7 +7,7 @@ Information
 {% set tab = 0 %}
 
 {% block main %}
-<link rel="stylesheet" href="/static/form.css">
+    <link rel="stylesheet" href="/static/form.css">
 <h2>User Information</h1>
     <form action="/" method="post">
         <div>
@@ -18,7 +18,7 @@ Information
             <input type="email" id="email" name="email" class="form-control">
             <br><br>
             <label for="birth_year">Birth Year: </label>
-            <input type="number" id="birth_year" name="birth_year" min="1900" max="2024" class="form-control">
+            <input {% if user_info["birth_year"] %} value="{{ user_info['birth_year'] }}" {% endif %} type="number" id="birth_year" name="birth_year" min="1900" max="{{current_year}}" class="form-control" style="width: 68px;">
             <br><br>
             <label>Gender:</label><br>
             <input type="radio" id="male" name="gender" value="1">
