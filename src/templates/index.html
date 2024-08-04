@@ -12,10 +12,10 @@ Information
     <form action="/" method="post">
         <div>
             <label for="full_name">Full Name</label><br>
-            <input type="text" id="full_name" name="full_name" class="form-control">
+            <input {% if user_info["full_name"] %} value="{{ user_info['full_name'] }}" {% endif %} type="text" id="full_name" name="full_name" class="form-control">
             <br><br>
             <label for="email">Email</label><br>
-            <input type="email" id="email" name="email" class="form-control">
+            <input {% if user_info["email"] %} value="{{ user_info['email'] }}" {% endif %} type="email" id="email" name="email" class="form-control">
             <br><br>
             <label for="birth_year">Birth Year: </label>
             <input {% if user_info["birth_year"] %} value="{{ user_info['birth_year'] }}" {% endif %} type="number" id="birth_year" name="birth_year" min="1900" max="{{current_year}}" class="form-control" style="width: 68px;">
@@ -26,11 +26,11 @@ Information
             <input type="radio" id="female" name="gender" value="0">
             <label for="female">Female</label>
             <br><br>
-            <label for="height_cm">Height (cm)</label>
-            <input type="number" id="height" name="height" min="0" class="form-control" style="width: 68px;">
+            <label for="height">Height (cm)</label>
+            <input {% if user_info["hight"] %} value="{{ user_info['hight'] }}" {% endif %} type="number" id="hight" name="hight" min="0" class="form-control" style="width: 68px;">
             <br><br>
             <label for="weight">Weight (kg)</label>
-            <input type="number" id="weight" name="weight" min="0" class="form-control" style="width: 68px;">
+            <input {% if user_info["weight"] %} value="{{ user_info['weight'] }}" {% endif %} type="number" id="weight" name="weight" min="0" class="form-control" style="width: 68px;">
             <br><br>
             <label>Ever got married:</label><br>
             <input type="radio" id="married_yes" name="married" value="1">
@@ -62,7 +62,7 @@ Information
             </select>
             <br><br>
             <label for="pregnancies">Number of Pregnancies:</label><br>
-            <input type="number" id="pregnancies" name="pregnancies" min="0" class="form-control" style="width: 68px;">
+            <input {% if user_info["pregnancies"] %} value="{{ user_info['pregnancies'] }}" {% endif %} type="number" id="pregnancies" name="pregnancies" min="0" class="form-control" style="width: 68px;">
             <br><br>
             <label>Chest Pain Type:</label><br>
             <select id="cp" name="cp" class="form-control">

@@ -1,5 +1,8 @@
-.venv/
+.venv
+.idx
+.vscode
+.idea
 *.db
-flask_session/
-src/__pycache__/
-src/flask_session/
+flask_session
+src/__pycache__
+src/flask_session
