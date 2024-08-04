@@ -32,14 +32,31 @@ def after_request(response):
 @login_required
 def index():
     if request.method == "GET":
-        user_info = db.execute("SELECT * FROM users WHERE id = ?;", session["user_id"])[0]
-        return render_template("index.html", user_info=user_info)
-    birth_year = request.form.get("birth_year");
-    try:
-        birth_year = int(birth_year)
-    except ValueError:
-        return render_template("error.html", message="invalid birth year", code=400)
-    db.execute("UPDATE users SET birth_year = ? WHERE id = ?;", birth_year, session["user_id"])
+        user_info = db.execute("SELECT * FROM users WHERE id = ?;", session["user_id"])
+        user_info = user_info[0] if user_info else {}
+        return render_template("index.html", user_info=user_info, current_year=current_year)
+
+    for i in ("birth_year", "hight", "weight", "pregnancies"):
+        value = request.form.get(i)
+        if value and value != "":
+            try:
+                value = int(value)
+            except ValueError:
+                return render_template("error.html", message="invalid " + i, code=400)
+            db.execute(
+                "UPDATE users SET " + i + " = ? WHERE id = ?;",
+                value,
+                session["user_id"],
+            )
+    for i in ("full_name", "email"):
+        value = request.form.get(i)
+        if value:
+            db.execute(
+                "UPDATE users SET " + i + " = ? WHERE id = ?;",
+                value,
+                session["user_id"],
+            )
+    flash("Information Updated Successfully!")
     return redirect("/")
 
 
@@ -82,10 +99,7 @@ def register():
         username,
         generate_password_hash(password),
     )
-    user = db.execute(
-        "SELECT * FROM users WHERE username = ?;",
-        username
-    )[0]
+    user = db.execute("SELECT * FROM users WHERE username = ?;", username)[0]
     session["user_id"] = user["id"]
     session["user_name"] = user["username"]
     flash("Account Created Successfully!")
@@ -112,14 +126,17 @@ def login():
         return render_template("error.html", message="must provide password", code=403)
 
     # Query database for username
-    rows = db.execute("SELECT * FROM users WHERE username = ?;",
-                      request.form.get("username"))
+    rows = db.execute(
+        "SELECT * FROM users WHERE username = ?;", request.form.get("username")
+    )
 
     # Ensure username exists and password is correct
     if len(rows) != 1 or not check_password_hash(
         rows[0]["hash"], request.form.get("password")
     ):
-        return render_template("error.html", message="invalid username and/or password", code=403)
+        return render_template(
+            "error.html", message="invalid username and/or password", code=403
+        )
 
     session["user_id"] = rows[0]["id"]
     session["user_name"] = rows[0]["username"]
@@ -137,3 +154,7 @@ def logout():
 @app.errorhandler(404)
 def not_found(e):
     return render_template("error.html", message=str(e)[3:], code=404)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

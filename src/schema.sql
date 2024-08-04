@@ -6,8 +6,8 @@ CREATE TABLE users (
     email TEXT,
     birth_year INTEGER,
     gender boolean,
-    hight_cm INTEGER,
-    weight_g INTEGER,
+    hight INTEGER,
+    weight INTEGER,
     married boolean,
     work INTEGER, -- stroke (private, self-employed, gov, children, never worked) 
     residence boolean, -- urban or rural
