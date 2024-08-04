@@ -3,6 +3,9 @@ from flask import Flask, redirect, render_template, request, session, flash
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required
+from datetime import datetime
+
+current_year = datetime.now().year
 
 # Configure application
 app = Flask(__name__)
@@ -25,10 +28,19 @@ def after_request(response):
     return response
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    return render_template("index.html")
+    if request.method == "GET":
+        user_info = db.execute("SELECT * FROM users WHERE id = ?;", session["user_id"])[0]
+        return render_template("index.html", user_info=user_info)
+    birth_year = request.form.get("birth_year");
+    try:
+        birth_year = int(birth_year)
+    except ValueError:
+        return render_template("error.html", message="invalid birth year", code=400)
+    db.execute("UPDATE users SET birth_year = ? WHERE id = ?;", birth_year, session["user_id"])
+    return redirect("/")
 
 
 @app.route("/appointments")
@@ -39,7 +51,7 @@ def appointments():
 
 @app.route("/results")
 @login_required
-def appointments():
+def results():
     return render_template("results.html")
 
 
