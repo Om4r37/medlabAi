@@ -1,9 +1,9 @@
 logo pwa apk?
-admin/patiants accounts
+admin(pathologist)/users(patients) accounts
 past tests:
 - sort by new/old
-- filter by location, type, result, classification, (userid)
-make appoinrment:
+- filter by location, type, result, classification, (userId)
+make appointment:
 - time
 - location
 - type
@@ -36,7 +36,7 @@ search
 - caa
 - thal
 
-4- Heart Falure:
+4- Heart Failure:
 - anaemia
 - CPK
 - diabetes
@@ -47,7 +47,7 @@ search
 - serum sodium
 
 5- Hepatitis C:
-- catagory
+- category
 - alp
 - alb
 - alt
@@ -70,7 +70,7 @@ search
 - hepatitis-c: [dataset](https://www.kaggle.com/datasets/fedesoriano/hepatitis-c-dataset), [prediction](https://www.kaggle.com/code/mohamedzaghloula/hepatitis-c-prediction)
 
 
-# refrences
+# references
 [finance50](https://finance.cs50.net/login), [code](https://github.com/me50/3m4r5/tree/a678d83555d84159b7e4076db62e6bc5aa29d1ce)
 
 # design

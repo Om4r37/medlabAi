@@ -38,7 +38,7 @@ def index():
 
     for i in ("birth_year", "hight", "weight", "pregnancies"):
         value = request.form.get(i)
-        if value and value != "":
+        if value != None and value != "":
             try:
                 value = int(value)
             except ValueError:
