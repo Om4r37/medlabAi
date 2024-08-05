@@ -34,7 +34,7 @@ def index():
     if request.method == "GET":
         user_info = db.execute("SELECT * FROM users WHERE id = ?;", session["user_id"])
         user_info = user_info[0] if user_info else {}
-        return render_template("index.html", user_info=user_info, current_year=current_year)
+        return render_template("index.jinja", user_info=user_info, current_year=current_year)
 
     for i in ("birth_year", "hight", "weight", "pregnancies"):
         value = request.form.get(i)
@@ -42,7 +42,7 @@ def index():
             try:
                 value = int(value)
             except ValueError:
-                return render_template("error.html", message="invalid " + i, code=400)
+                return render_template("error.jinja", message="invalid " + i, code=400)
             db.execute(
                 "UPDATE users SET " + i + " = ? WHERE id = ?;",
                 value,
@@ -63,36 +63,36 @@ def index():
 @app.route("/appointments")
 @login_required
 def appointments():
-    return render_template("appointments.html")
+    return render_template("appointments.jinja")
 
 
 @app.route("/results")
 @login_required
 def results():
-    return render_template("results.html")
+    return render_template("results.jinja")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
     if request.method == "GET":
-        return render_template("register.html")
+        return render_template("register.jinja")
 
     username = request.form.get("username")
     password = request.form.get("password")
     verification = request.form.get("confirmation")
 
     if not username:
-        return render_template("error.html", message="must provide username", code=400)
+        return render_template("error.jinja", message="must provide username", code=400)
 
     if not password:
-        return render_template("error.html", message="must provide password", code=400)
+        return render_template("error.jinja", message="must provide password", code=400)
 
     if password != verification:
-        return render_template("error.html", message="passwords don't match", code=400)
+        return render_template("error.jinja", message="passwords don't match", code=400)
 
     if db.execute("SELECT * FROM users WHERE username = ?;", username):
-        return render_template("error.html", message="username already taken", code=400)
+        return render_template("error.jinja", message="username already taken", code=400)
 
     db.execute(
         "INSERT INTO users (username, hash) VALUES (?, ?);",
@@ -114,16 +114,16 @@ def login():
     session.clear()
     # User reached route via GET (as by clicking a link or via redirect)
     if request.method == "GET":
-        return render_template("login.html")
+        return render_template("login.jinja")
 
     # User reached route via POST (as by submitting a form via POST)
     # Ensure username was submitted
     if not request.form.get("username"):
-        return render_template("error.html", message="must provide username", code=403)
+        return render_template("error.jinja", message="must provide username", code=403)
 
     # Ensure password was submitted
     elif not request.form.get("password"):
-        return render_template("error.html", message="must provide password", code=403)
+        return render_template("error.jinja", message="must provide password", code=403)
 
     # Query database for username
     rows = db.execute(
@@ -135,7 +135,7 @@ def login():
         rows[0]["hash"], request.form.get("password")
     ):
         return render_template(
-            "error.html", message="invalid username and/or password", code=403
+            "error.jinja", message="invalid username and/or password", code=403
         )
 
     session["user_id"] = rows[0]["id"]
@@ -153,7 +153,7 @@ def logout():
 
 @app.errorhandler(404)
 def not_found(e):
-    return render_template("error.html", message=str(e)[3:], code=404)
+    return render_template("error.jinja", message=str(e)[3:], code=404)
 
 
 if __name__ == "__main__":
