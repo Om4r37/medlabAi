@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/logo.ico">
     <link href="/static/styles.css" rel="stylesheet">
     <script src="/static/scripts.js"></script>
     <title>Medical Lab System: {% block title %}{% endblock %}</title>
 </head>
-<body onload="highlight({{ tab }});">
+<body onload="highlight( {{ tab }} );">
     <div class="navbar">
-        <div class="navbar-logo">🧪 Title</div>
+        <div class="navbar-logo"><img src="/static/logo.svg" style="height: 1.7rem; translate: -15% 15%;">IntelliPath</div>
         {% if session["user_id"] %}
             <ul class="navbar-tabs">
                 <a class="navbar-tab" href="/">ℹ️ Information</a>
