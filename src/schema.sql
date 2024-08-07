@@ -5,12 +5,12 @@ CREATE TABLE users (
     full_name TEXT,
     email TEXT,
     birth_year INTEGER,
-    gender boolean,
+    gender boolean, -- 1: male, 0: female
     hight INTEGER,
     weight INTEGER,
     married boolean,
     work INTEGER, -- stroke (private, self-employed, gov, children, never worked) 
-    residence boolean, -- urban or rural
+    residence boolean, -- 0: rural, 1: urban
     smoke INTEGER, -- 0: unknown, 1: never, 2: former, 3: current
     pregnancies INTEGER,
     cp INTEGER, -- 1: typical angina, 2: atypical angina, 3: non-anginal pain, 4: asymptomatic

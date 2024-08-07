@@ -21,9 +21,9 @@ Information
             <input {% if user_info["birth_year"] != None %} value="{{ user_info['birth_year'] }}" {% endif %} type="number" id="birth_year" name="birth_year" min="1900" max="{{current_year}}" class="form-control" style="width: 68px;">
             <br><br>
             <label>Gender:</label><br>
-            <input type="radio" id="male" name="gender" value="1">
+            <input type="radio" id="male" name="gender" value="1" {% if user_info["gender"] %} checked {% endif %}>
             <label for="male">Male</label><br>
-            <input type="radio" id="female" name="gender" value="0">
+            <input type="radio" id="female" name="gender" value="0" {% if user_info["gender"] == 0 %} checked {% endif %}>
             <label for="female">Female</label>
             <br><br>
             <label for="height">Height (cm)</label>
@@ -33,9 +33,9 @@ Information
             <input {% if user_info["weight"] != None %} value="{{ user_info['weight'] }}" {% endif %} type="number" id="weight" name="weight" min="0" class="form-control" style="width: 68px;">
             <br><br>
             <label>Ever got married:</label><br>
-            <input type="radio" id="married_yes" name="married" value="1">
+            <input type="radio" id="married_yes" name="married" value="1" {% if user_info["married"] %} checked {% endif %}>
             <label for="married_yes">Yes</label><br>
-            <input type="radio" id="married_no" name="married" value="0">
+            <input type="radio" id="married_no" name="married" value="0" {% if user_info["married"] == 0 %} checked {% endif %}>
             <label for="married_no">No</label>
             <br><br>
             <label for="work">Work Status:</label><br>
@@ -48,9 +48,9 @@ Information
             </select>
             <br><br>
             <label>Residence:</label><br>
-            <input type="radio" id="urban" name="residence" value="1">
+            <input type="radio" id="urban" name="residence" value="1" {% if user_info["residence"] %} checked {% endif %}>
             <label for="urban">Urban</label><br>
-            <input type="radio" id="rural" name="residence" value="0">
+            <input type="radio" id="rural" name="residence" value="0" {% if user_info["residence"] == 0 %} checked {% endif %}>
             <label for="rural">Rural</label>
             <br><br>
             <label for="smoke">Smoking Status:</label><br>
@@ -72,13 +72,16 @@ Information
                 <option value="4">Asymptomatic</option>
             </select>
             <br><br>
-            <input type="checkbox" id="exng" name="exng" value="1">
+            <input type="checkbox" id="exng" name="exng" value="1" {% if user_info["exng"] %} checked {% endif %}>
             <label for="exng">Exercise Induced Angina</label>
             <br><br>
-            <input type="checkbox" id="heart_disease" name="heart_disease" value="1">
+            <input type="checkbox" id="heart_disease" name="heart_disease" value="1" {% if user_info["heart_disease"] %} checked {% endif %}>
             <label for="heart_disease">Heart Disease</label>
             <br><br>
-            <input type="submit" value="Save" style="margin: 0 50%; translate: -50% 0;">
+            <div style="display: flex; justify-content:space-between; width: 100%;">
+                <a href="/delete"><button id="delete">Delete</button></a>
+                <a><input id="save" type="submit" value="Save"></a>
+            </div>
         </div>
     </form>
     {% endblock %}

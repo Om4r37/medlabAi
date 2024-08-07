@@ -10,17 +10,45 @@ form {
     border-radius: 0.5rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .form-control {
     padding: .375rem .75rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     border-radius: .4rem;
     border: 1px solid #ced4da;
 }
+
 form div {
     width: fit-content;
     margin: auto;
     text-align: left;
 }
+
 form div *{
     margin: 8px 0;
+}
+
+#save, #delete {
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#save {
+    background-color: #007bff;
+}
+
+#save:hover {
+    background-color: #0056b3;
+}
+
+#delete {
+    background-color: #dc3545;
+}
+
+#delete:hover {
+    background-color: #c82333;
 }

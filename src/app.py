@@ -49,14 +49,32 @@ def index():
                 session["user_id"],
             )
     for i in ("full_name", "email"):
-        value = request.form.get(i)
-        if value:
+        if value := request.form.get(i):
             db.execute(
                 "UPDATE users SET " + i + " = ? WHERE id = ?;",
                 value,
                 session["user_id"],
             )
+    for i in ("gender", "married", "residence"):
+        if v := request.form.get(i):
+            db.execute(
+                    f"UPDATE users SET {i} = {v == "1"} WHERE id = ?;",
+                    session["user_id"]
+                )
+    for i in ("exng", "heart_disease"):
+        db.execute(
+                f"UPDATE users SET {i} = {1 if request.form.get(i) else 0} WHERE id = ?;",
+                session["user_id"]
+            )
     flash("Information Updated Successfully!")
+    return redirect("/")
+
+
+@app.route("/delete")
+@login_required
+def delete():
+    db.execute("UPDATE users SET full_name = NULL, email = NULL, gender = NULL, married = NULL, residence = NULL, birth_year = NULL, hight = NULL, weight = NULL, pregnancies = NULL WHERE id = ?;",
+            session["user_id"])
     return redirect("/")
 
 
