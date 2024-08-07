@@ -2,8 +2,8 @@ from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session, flash
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import login_required
 from datetime import datetime
+from functools import wraps
 
 current_year = datetime.now().year
 
@@ -26,6 +26,19 @@ def after_request(response):
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
+
+
+def login_required(f):
+    """
+    Decorate routes to require login.
+    https://flask.palletsprojects.com/en/latest/patterns/viewdecorators/
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user_id") is None:
+            return redirect("/login")
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -64,6 +77,12 @@ def index():
     for i in ("exng", "heart_disease"):
         db.execute(
                 f"UPDATE users SET {i} = {1 if request.form.get(i) else 0} WHERE id = ?;",
+                session["user_id"]
+            )
+    for i in ("work", "smoke", "cp"):
+        db.execute(
+                f"UPDATE users SET {i} = ? WHERE id = ?;",
+                request.form.get(i),
                 session["user_id"]
             )
     flash("Information Updated Successfully!")
