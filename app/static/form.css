@@ -13,7 +13,7 @@ form {
 
 .form-control {
     padding: .375rem .75rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     border-radius: .4rem;
     border: 1px solid #ced4da;
 }
@@ -24,11 +24,12 @@ form div {
     text-align: left;
 }
 
-form div *{
+form div * {
     margin: 8px 0;
 }
 
-#save, #delete {
+#save,
+#delete {
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;

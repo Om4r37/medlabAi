@@ -46,7 +46,7 @@
 2. initial ui design on figma: https://www.figma.com/design/1vKeJgb2M1RASbRvm1wc2R/medical-lab-system?node-id=0-1&t=XLlMMsovwxGaYCVu-1
 3. responsive tab bar
 4. logo and favicon
-5. users accounts and authentication system
+5. users accounts registration and authentication system
 6. registration, login, error, user information pages
 7. appointments system
 8. appointments page
