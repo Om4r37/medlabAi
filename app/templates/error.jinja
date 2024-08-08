@@ -1,0 +1,14 @@
+{% extends "layout.jinja" %}
+
+{% block title %}
+Apology
+{% endblock %}
+
+{% block main %}
+<h1>Error {{ code }} </h1>
+<p> {{ message }} </p>
+<button onclick="window.history.back()"
+    style="padding: 0.5rem 1rem; border-radius: 0.5rem; border: none; cursor: pointer;">
+    Go Back
+</button>
+{% endblock %}

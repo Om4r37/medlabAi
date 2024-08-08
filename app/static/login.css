@@ -22,10 +22,11 @@ form {
 
 .input-container {
     position: relative;
-    
+
 }
 
-input, .form button {
+input,
+.form button {
     outline: none;
     border: 1px solid #e5e7eb;
     margin: 8px 0;
@@ -45,7 +46,8 @@ input {
 
 .submit {
     display: block;
-    padding: 0.75rem 1rem;;
+    padding: 0.75rem 1rem;
+    ;
     background-color: #545454;
     color: #ffffff;
     font-size: 0.875rem;

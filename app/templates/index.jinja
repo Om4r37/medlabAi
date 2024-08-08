@@ -1,0 +1,97 @@
+{% extends "layout.jinja" %}
+
+{% block title %}
+Information
+{% endblock %}
+
+{% set tab = 0 %}
+
+{% block main %}
+<link rel="stylesheet" href="/static/form.css">
+<h2>User Information</h1>
+    <form action="/" method="post">
+        <div>
+            <label for="full_name">Full Name</label><br>
+            <input {% if user_info["full_name"] !=None %} value="{{ user_info['full_name'] }}" {% endif %} type="text"
+                id="full_name" name="full_name" class="form-control">
+            <br><br>
+            <label for="email">Email</label><br>
+            <input {% if user_info["email"] !=None %} value="{{ user_info['email'] }}" {% endif %} type="email"
+                id="email" name="email" class="form-control">
+            <br><br>
+            <label for="birth_year">Birth Year: </label>
+            <input {% if user_info["birth_year"] !=None %} value="{{ user_info['birth_year'] }}" {% endif %}
+                type="number" id="birth_year" name="birth_year" min="1900" max="{{current_year}}" class="form-control"
+                style="width: 68px;">
+            <br><br>
+            <label>Gender:</label><br>
+            <input type="radio" id="male" name="gender" value="1" {% if user_info["gender"] %} checked {% endif %}>
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" name="gender" value="0" {% if user_info["gender"]==0 %} checked {% endif %}>
+            <label for="female">Female</label>
+            <br><br>
+            <label for="height">Height (cm)</label>
+            <input {% if user_info["height"] !=None %} value="{{ user_info['height'] }}" {% endif %} type="number"
+                id="height" name="height" min="0" class="form-control" style="width: 68px;">
+            <br><br>
+            <label for="weight">Weight (kg)</label>
+            <input {% if user_info["weight"] !=None %} value="{{ user_info['weight'] }}" {% endif %} type="number"
+                id="weight" name="weight" min="0" class="form-control" style="width: 68px;">
+            <br><br>
+            <label>Ever got married:</label><br>
+            <input type="radio" id="married_yes" name="married" value="1" {% if user_info["married"] %} checked {% endif
+                %}>
+            <label for="married_yes">Yes</label><br>
+            <input type="radio" id="married_no" name="married" value="0" {% if user_info["married"]==0 %} checked {%
+                endif %}>
+            <label for="married_no">No</label>
+            <br><br>
+            <label for="work">Work Status:</label><br>
+            <select id="work" name="work" class="form-control">
+                <option value="0" {% if user_info["work"]==0 %} selected {% endif %}>Never Worked</option>
+                <option value="1" {% if user_info["work"]==1 %} selected {% endif %}>Private</option>
+                <option value="2" {% if user_info["work"]==2 %} selected {% endif %}>Self-Employed</option>
+                <option value="3" {% if user_info["work"]==3 %} selected {% endif %}>Government</option>
+                <option value="4" {% if user_info["work"]==4 %} selected {% endif %}>Children</option>
+            </select>
+            <br><br>
+            <label>Residence:</label><br>
+            <input type="radio" id="urban" name="residence" value="1" {% if user_info["residence"] %} checked {% endif
+                %}>
+            <label for="urban">Urban</label><br>
+            <input type="radio" id="rural" name="residence" value="0" {% if user_info["residence"]==0 %} checked {%
+                endif %}>
+            <label for="rural">Rural</label>
+            <br><br>
+            <label for="smoke">Smoking Status:</label><br>
+            <select id="smoke" name="smoke" class="form-control">
+                <option value="0" {% if user_info["smoke"]==0 %} selected {% endif %}>Unknown</option>
+                <option value="1" {% if user_info["smoke"]==1 %} selected {% endif %}>Never</option>
+                <option value="2" {% if user_info["smoke"]==2 %} selected {% endif %}>Former</option>
+                <option value="3" {% if user_info["smoke"]==3 %} selected {% endif %}>Current</option>
+            </select>
+            <br><br>
+            <label for="pregnancies">Number of Pregnancies:</label><br>
+            <input {% if user_info["pregnancies"] !=None %} value="{{ user_info['pregnancies'] }}" {% endif %}
+                type="number" id="pregnancies" name="pregnancies" min="0" class="form-control" style="width: 68px;">
+            <br><br>
+            <label>Chest Pain Type:</label><br>
+            <select id="cp" name="cp" class="form-control">
+                <option value="1" {% if user_info["cp"]==1 %} selected {% endif %}>Typical Angina</option>
+                <option value="2" {% if user_info["cp"]==2 %} selected {% endif %}>Atypical Angina</option>
+                <option value="3" {% if user_info["cp"]==3 %} selected {% endif %}>Non-Anginal Pain</option>
+                <option value="4" {% if user_info["cp"]==4 %} selected {% endif %}>Asymptomatic</option>
+            </select>
+            <br><br>
+            <input type="checkbox" id="exng" name="exng" value="1" {% if user_info["exng"] %} checked {% endif %}>
+            <label for="exng">Exercise Induced Angina</label>
+            <br><br>
+            <input type="checkbox" id="heart_disease" name="heart_disease" value="1" {% if user_info["heart_disease"] %}
+                checked {% endif %}>
+            <label for="heart_disease">Heart Disease</label>
+            <br><br>
+            <input id="save" type="submit" value="Save" class="mid">
+        </div>
+    </form>
+    <a href="/delete"><button id="delete">Delete all Information</button></a>
+    {% endblock %}
