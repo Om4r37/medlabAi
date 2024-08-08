@@ -46,9 +46,15 @@ form div *{
 }
 
 #delete {
+    margin-top: 2rem;
     background-color: #dc3545;
 }
 
 #delete:hover {
     background-color: #c82333;
+}
+
+.mid {
+    margin-left: 50%;
+    transform: translateX(-50%);
 }

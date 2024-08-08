@@ -78,10 +78,8 @@ Information
             <input type="checkbox" id="heart_disease" name="heart_disease" value="1" {% if user_info["heart_disease"] %} checked {% endif %}>
             <label for="heart_disease">Heart Disease</label>
             <br><br>
-            <div style="display: flex; justify-content:space-between; width: 100%;">
-                <a href="/delete"><button id="delete">Delete</button></a>
-                <a><input id="save" type="submit" value="Save"></a>
-            </div>
+            <input id="save" type="submit" value="Save" class="mid">
         </div>
     </form>
-    {% endblock %}
+    <a href="/delete"><button id="delete">Delete all Information</button></a>
+{% endblock %}
