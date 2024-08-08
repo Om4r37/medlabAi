@@ -2,8 +2,8 @@ from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session, flash
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import login_required
 from datetime import datetime
+from functools import wraps
 
 current_year = datetime.now().year
 
@@ -28,15 +28,32 @@ def after_request(response):
     return response
 
 
+def login_required(f):
+    """
+    Decorate routes to require login.
+    https://flask.palletsprojects.com/en/latest/patterns/viewdecorators/
+    """
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user_id") is None:
+            return redirect("/login")
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
     if request.method == "GET":
         user_info = db.execute("SELECT * FROM users WHERE id = ?;", session["user_id"])
         user_info = user_info[0] if user_info else {}
-        return render_template("index.jinja", user_info=user_info, current_year=current_year)
+        return render_template(
+            "index.jinja", user_info=user_info, current_year=current_year
+        )
 
-    for i in ("birth_year", "hight", "weight", "pregnancies"):
+    for i in ("birth_year", "height", "weight", "pregnancies"):
         value = request.form.get(i)
         if value != None and value != "":
             try:
@@ -44,28 +61,38 @@ def index():
             except ValueError:
                 return render_template("error.jinja", message="invalid " + i, code=400)
             db.execute(
-                "UPDATE users SET " + i + " = ? WHERE id = ?;",
+                "UPDATE users SET ? = ? WHERE id = ?;",
+                i,
                 value,
                 session["user_id"],
             )
     for i in ("full_name", "email"):
         if value := request.form.get(i):
             db.execute(
-                "UPDATE users SET " + i + " = ? WHERE id = ?;",
+                "UPDATE users SET ? = ? WHERE id = ?;",
+                i,
                 value,
                 session["user_id"],
             )
     for i in ("gender", "married", "residence"):
         if v := request.form.get(i):
             db.execute(
-                    f"UPDATE users SET {i} = {v == "1"} WHERE id = ?;",
-                    session["user_id"]
-                )
+                "UPDATE users SET ? = ? WHERE id = ?;", i, v == "1", session["user_id"]
+            )
     for i in ("exng", "heart_disease"):
         db.execute(
-                f"UPDATE users SET {i} = {1 if request.form.get(i) else 0} WHERE id = ?;",
-                session["user_id"]
-            )
+            "UPDATE users SET ? = ? WHERE id = ?;",
+            i,
+            1 if request.form.get(i) else 0,
+            session["user_id"],
+        )
+    for i in ("work", "smoke", "cp"):
+        db.execute(
+            "UPDATE users SET ? = ? WHERE id = ?;",
+            i,
+            request.form.get(i),
+            session["user_id"],
+        )
     flash("Information Updated Successfully!")
     return redirect("/")
 
@@ -73,8 +100,24 @@ def index():
 @app.route("/delete")
 @login_required
 def delete():
-    db.execute("UPDATE users SET full_name = NULL, email = NULL, gender = NULL, married = NULL, residence = NULL, birth_year = NULL, hight = NULL, weight = NULL, pregnancies = NULL WHERE id = ?;",
-            session["user_id"])
+    for i in (
+        "full_name",
+        "email",
+        "gender",
+        "married",
+        "residence",
+        "birth_year",
+        "height",
+        "weight",
+        "pregnancies",
+        "exng",
+        "heart_disease",
+        "work",
+        "smoke",
+        "cp",
+    ):
+        db.execute("UPDATE users SET ? = NULL WHERE id = ?;", i, session["user_id"])
+    flash("User Data Deleted!")
     return redirect("/")
 
 
@@ -110,7 +153,9 @@ def register():
         return render_template("error.jinja", message="passwords don't match", code=400)
 
     if db.execute("SELECT * FROM users WHERE username = ?;", username):
-        return render_template("error.jinja", message="username already taken", code=400)
+        return render_template(
+            "error.jinja", message="username already taken", code=400
+        )
 
     db.execute(
         "INSERT INTO users (username, hash) VALUES (?, ?);",

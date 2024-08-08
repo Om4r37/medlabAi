@@ -27,7 +27,7 @@ Information
             <label for="female">Female</label>
             <br><br>
             <label for="height">Height (cm)</label>
-            <input {% if user_info["hight"] != None %} value="{{ user_info['hight'] }}" {% endif %} type="number" id="hight" name="hight" min="0" class="form-control" style="width: 68px;">
+            <input {% if user_info["height"] != None %} value="{{ user_info['height'] }}" {% endif %} type="number" id="height" name="height" min="0" class="form-control" style="width: 68px;">
             <br><br>
             <label for="weight">Weight (kg)</label>
             <input {% if user_info["weight"] != None %} value="{{ user_info['weight'] }}" {% endif %} type="number" id="weight" name="weight" min="0" class="form-control" style="width: 68px;">
@@ -40,11 +40,11 @@ Information
             <br><br>
             <label for="work">Work Status:</label><br>
             <select id="work" name="work" class="form-control">
-                <option value="0">Private</option>
-                <option value="1">Self-Employed</option>
-                <option value="2">Government</option>
-                <option value="3">Children</option>
-                <option value="4">Never Worked</option>
+                <option value="0" {% if user_info["work"] == 0 %} selected {% endif %}>Never Worked</option>
+                <option value="1" {% if user_info["work"] == 1 %} selected {% endif %}>Private</option>
+                <option value="2" {% if user_info["work"] == 2 %} selected {% endif %}>Self-Employed</option>
+                <option value="3" {% if user_info["work"] == 3 %} selected {% endif %}>Government</option>
+                <option value="4" {% if user_info["work"] == 4 %} selected {% endif %}>Children</option>
             </select>
             <br><br>
             <label>Residence:</label><br>
@@ -55,10 +55,10 @@ Information
             <br><br>
             <label for="smoke">Smoking Status:</label><br>
             <select id="smoke" name="smoke" class="form-control">
-                <option value="0">Unknown</option>
-                <option value="1">Never</option>
-                <option value="2">Former</option>
-                <option value="3">Current</option>
+                <option value="0" {% if user_info["smoke"] == 0 %} selected {% endif %}>Unknown</option>
+                <option value="1" {% if user_info["smoke"] == 1 %} selected {% endif %}>Never</option>
+                <option value="2" {% if user_info["smoke"] == 2 %} selected {% endif %}>Former</option>
+                <option value="3" {% if user_info["smoke"] == 3 %} selected {% endif %}>Current</option>
             </select>
             <br><br>
             <label for="pregnancies">Number of Pregnancies:</label><br>
@@ -66,10 +66,10 @@ Information
             <br><br>
             <label>Chest Pain Type:</label><br>
             <select id="cp" name="cp" class="form-control">
-                <option value="1">Typical Angina</option>
-                <option value="2">Atypical Angina</option>
-                <option value="3">Non-Anginal Pain</option>
-                <option value="4">Asymptomatic</option>
+                <option value="1" {% if user_info["cp"] == 1 %} selected {% endif %}>Typical Angina</option>
+                <option value="2" {% if user_info["cp"] == 2 %} selected {% endif %}>Atypical Angina</option>
+                <option value="3" {% if user_info["cp"] == 3 %} selected {% endif %}>Non-Anginal Pain</option>
+                <option value="4" {% if user_info["cp"] == 4 %} selected {% endif %}>Asymptomatic</option>
             </select>
             <br><br>
             <input type="checkbox" id="exng" name="exng" value="1" {% if user_info["exng"] %} checked {% endif %}>
@@ -78,10 +78,8 @@ Information
             <input type="checkbox" id="heart_disease" name="heart_disease" value="1" {% if user_info["heart_disease"] %} checked {% endif %}>
             <label for="heart_disease">Heart Disease</label>
             <br><br>
-            <div style="display: flex; justify-content:space-between; width: 100%;">
-                <a href="/delete"><button id="delete">Delete</button></a>
-                <a><input id="save" type="submit" value="Save"></a>
-            </div>
+            <input id="save" type="submit" value="Save" class="mid">
         </div>
     </form>
-    {% endblock %}
+    <a href="/delete"><button id="delete">Delete all Information</button></a>
+{% endblock %}
