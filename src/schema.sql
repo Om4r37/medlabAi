@@ -6,7 +6,7 @@ CREATE TABLE users (
     email TEXT,
     birth_year INTEGER,
     gender boolean, -- 1: male, 0: female
-    hight INTEGER, -- typo
+    height INTEGER,
     weight INTEGER,
     married boolean,
     work INTEGER, -- stroke (never worked, private, self-employed, gov, children) 

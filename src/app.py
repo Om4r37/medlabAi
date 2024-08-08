@@ -53,7 +53,7 @@ def index():
             "index.jinja", user_info=user_info, current_year=current_year
         )
 
-    for i in ("birth_year", "hight", "weight", "pregnancies"):
+    for i in ("birth_year", "height", "weight", "pregnancies"):
         value = request.form.get(i)
         if value != None and value != "":
             try:
@@ -107,7 +107,7 @@ def delete():
         "married",
         "residence",
         "birth_year",
-        "hight",
+        "height",
         "weight",
         "pregnancies",
         "exng",
