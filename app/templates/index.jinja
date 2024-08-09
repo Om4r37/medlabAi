@@ -75,14 +75,6 @@ Information
             <input {% if user_info["pregnancies"] !=None %} value="{{ user_info['pregnancies'] }}" {% endif %}
                 type="number" id="pregnancies" name="pregnancies" min="0" class="form-control" style="width: 68px;">
             <br><br>
-            <label>Chest Pain Type:</label><br>
-            <select id="cp" name="cp" class="form-control">
-                <option value="1" {% if user_info["cp"]==1 %} selected {% endif %}>Typical Angina</option>
-                <option value="2" {% if user_info["cp"]==2 %} selected {% endif %}>Atypical Angina</option>
-                <option value="3" {% if user_info["cp"]==3 %} selected {% endif %}>Non-Anginal Pain</option>
-                <option value="4" {% if user_info["cp"]==4 %} selected {% endif %}>Asymptomatic</option>
-            </select>
-            <br><br>
             <input type="checkbox" id="exng" name="exng" value="1" {% if user_info["exng"] %} checked {% endif %}>
             <label for="exng">Exercise Induced Angina</label>
             <br><br>

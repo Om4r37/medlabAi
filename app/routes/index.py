@@ -49,7 +49,7 @@ def index():
             1 if request.form.get(i) else 0,
             session["user_id"],
         )
-    for i in ("work", "smoke", "cp"):
+    for i in ("work", "smoke"):
         db.execute(
             "UPDATE users SET ? = ? WHERE id = ?;",
             i,
@@ -77,7 +77,6 @@ def delete():
         "heart_disease",
         "work",
         "smoke",
-        "cp",
     ):
         db.execute("UPDATE users SET ? = NULL WHERE id = ?;", i, session["user_id"])
     flash("User Data Deleted!")
