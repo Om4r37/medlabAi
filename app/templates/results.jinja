@@ -9,6 +9,7 @@ Results
 {% block main %}
 <link rel="stylesheet" href="static/table.css">
 <h2>Results</h2>
+{% if rows %}
 <div class="table-container">
     <table>
         <thead>
@@ -16,25 +17,22 @@ Results
                 <th scope="col">Time</th>
                 <th scope="col">Location</th>
                 <th scope="col">Type</th>
+                <th scope="col">classification</th>
             </tr>
         </thead>
         <tbody>
+            {% for row in rows %}
             <tr>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>{{ row.time }}</td>
+                <td>{{ row.location}}</td>
+                <td>{{ row.type }}</td>
+                <td>{{ row.class }}</td>
             </tr>
-            <tr>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
+{% else %}
+You have no results.
+{% endif %}
 {% endblock %}
