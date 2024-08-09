@@ -30,6 +30,7 @@ CREATE TABLE appointments (
     user_id INTEGER NOT NULL,
     time INTEGER NOT NULL,
     location_id INTEGER NOT NULL,
+    test_type INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (location_id) REFERENCES locations (id)
 );
