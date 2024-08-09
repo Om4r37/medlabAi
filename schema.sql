@@ -13,9 +13,23 @@ CREATE TABLE users (
     residence boolean, -- 0: rural, 1: urban
     smoke INTEGER, -- 0: unknown, 1: never, 2: former, 3: current
     pregnancies INTEGER,
-    cp INTEGER, -- 1: typical angina, 2: atypical angina, 3: non-anginal pain, 4: asymptomatic
+    -- cp INTEGER, -- 1: typical angina, 2: atypical angina, 3: non-anginal pain, 4: asymptomatic
     exng boolean,
     heart_disease boolean
 );
 
 CREATE UNIQUE INDEX username ON users (username);
+
+CREATE TABLE locations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+);
+
+CREATE TABLE appointments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    user_id INTEGER NOT NULL,
+    time INTEGER NOT NULL,
+    location_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (location_id) REFERENCES locations (id)
+);
