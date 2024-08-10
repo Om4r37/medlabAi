@@ -14,7 +14,7 @@ a {
     color: white;
 }
 
-.alert-primary {
+.alert {
     display: flex;
     justify-content: space-between;
     align-items: center;
