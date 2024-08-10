@@ -34,7 +34,7 @@
     {% endif %}
     {% if get_flashed_messages() %}
     <header>
-        <div id="flash" class="alert alert-primary mb-0 text-center" role="alert">
+        <div id="flash" class="alert" role="alert">
             <span id="message" style=""> {{ get_flashed_messages() | join(" ") }} </span>
             <button id="close" onclick="closeFlash();">X</button>
         </div>
@@ -45,7 +45,7 @@
         }
     </style>
     {% endif %}
-    <main class="container py-5 text-center">
+    <main>
         {% block main %}{% endblock %}
     </main>
 </body>
