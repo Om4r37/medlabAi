@@ -22,15 +22,22 @@ CREATE UNIQUE INDEX username ON users (username);
 
 CREATE TABLE locations (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    name TEXT NOT NULL,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE tests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    duration INTEGER NOT NULL,
+    name TEXT NOT NULL
 );
 
 CREATE TABLE appointments (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    time TEXT NOT NULL,
     user_id INTEGER NOT NULL,
-    time INTEGER NOT NULL,
     location_id INTEGER NOT NULL,
-    test_type INTEGER NOT NULL,
+    test_id INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id),
-    FOREIGN KEY (location_id) REFERENCES locations (id)
+    FOREIGN KEY (location_id) REFERENCES locations (id),
+    FOREIGN KEY (test_id) REFERENCES tests (id)
 );
