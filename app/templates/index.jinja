@@ -13,16 +13,15 @@ Information
         <div>
             <label for="full_name">Full Name</label><br>
             <input {% if user_info["full_name"] !=None %} value="{{ user_info['full_name'] }}" {% endif %} type="text"
-                id="full_name" name="full_name" class="form-control">
+                id="full_name" name="full_name">
             <br><br>
             <label for="email">Email</label><br>
             <input {% if user_info["email"] !=None %} value="{{ user_info['email'] }}" {% endif %} type="email"
-                id="email" name="email" class="form-control">
+                id="email" name="email">
             <br><br>
             <label for="birth_year">Birth Year: </label>
             <input {% if user_info["birth_year"] !=None %} value="{{ user_info['birth_year'] }}" {% endif %}
-                type="number" id="birth_year" name="birth_year" min="1900" max="{{current_year}}" class="form-control"
-                style="width: 68px;">
+                type="number" id="birth_year" name="birth_year" min="1900" max="{{current_year}}" style="width: 68px;">
             <br><br>
             <label>Gender:</label><br>
             <input type="radio" id="male" name="gender" value="1" {% if user_info["gender"] %} checked {% endif %}>
@@ -32,11 +31,11 @@ Information
             <br><br>
             <label for="height">Height (cm)</label>
             <input {% if user_info["height"] !=None %} value="{{ user_info['height'] }}" {% endif %} type="number"
-                id="height" name="height" min="0" class="form-control" style="width: 68px;">
+                id="height" name="height" min="0" style="width: 68px;">
             <br><br>
             <label for="weight">Weight (kg)</label>
             <input {% if user_info["weight"] !=None %} value="{{ user_info['weight'] }}" {% endif %} type="number"
-                id="weight" name="weight" min="0" class="form-control" style="width: 68px;">
+                id="weight" name="weight" min="0" style="width: 68px;">
             <br><br>
             <label>Ever got married:</label><br>
             <input type="radio" id="married_yes" name="married" value="1" {% if user_info["married"] %} checked {% endif
@@ -47,7 +46,7 @@ Information
             <label for="married_no">No</label>
             <br><br>
             <label for="work">Work Status:</label><br>
-            <select id="work" name="work" class="form-control">
+            <select id="work" name="work">
                 <option value="0" {% if user_info["work"]==0 %} selected {% endif %}>Never Worked</option>
                 <option value="1" {% if user_info["work"]==1 %} selected {% endif %}>Private</option>
                 <option value="2" {% if user_info["work"]==2 %} selected {% endif %}>Self-Employed</option>
@@ -64,7 +63,7 @@ Information
             <label for="rural">Rural</label>
             <br><br>
             <label for="smoke">Smoking Status:</label><br>
-            <select id="smoke" name="smoke" class="form-control">
+            <select id="smoke" name="smoke">
                 <option value="0" {% if user_info["smoke"]==0 %} selected {% endif %}>Unknown</option>
                 <option value="1" {% if user_info["smoke"]==1 %} selected {% endif %}>Never</option>
                 <option value="2" {% if user_info["smoke"]==2 %} selected {% endif %}>Former</option>
@@ -73,7 +72,7 @@ Information
             <br><br>
             <label for="pregnancies">Number of Pregnancies:</label><br>
             <input {% if user_info["pregnancies"] !=None %} value="{{ user_info['pregnancies'] }}" {% endif %}
-                type="number" id="pregnancies" name="pregnancies" min="0" class="form-control" style="width: 68px;">
+                type="number" id="pregnancies" name="pregnancies" min="0" style="width: 68px;">
             <br><br>
             <input type="checkbox" id="exng" name="exng" value="1" {% if user_info["exng"] %} checked {% endif %}>
             <label for="exng">Exercise Induced Angina</label>

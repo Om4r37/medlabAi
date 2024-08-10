@@ -1,4 +1,7 @@
+OPENING_TIME = "09:00"
+CLOSING_TIME = "22:00"
+
+
 class Config:
-    SECRET_KEY = "your_secret_key"
     SESSION_PERMANENT = False
     SESSION_TYPE = "filesystem"
