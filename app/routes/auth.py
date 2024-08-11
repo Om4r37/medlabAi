@@ -9,7 +9,7 @@ bp = Blueprint("auth", __name__)
 def register():
     """Register user"""
     if request.method == "GET":
-        return render_template("register.jinja")
+        return render_template("auth/register.jinja")
 
     username = request.form.get("username")
     password = request.form.get("password")
@@ -47,7 +47,7 @@ def login():
     session.clear()  # Forget any user_id
 
     if request.method == "GET":
-        return render_template("login.jinja")
+        return render_template("auth/login.jinja")
 
     if not request.form.get("username"):
         return render_template("error.jinja", message="must provide username", code=403)
