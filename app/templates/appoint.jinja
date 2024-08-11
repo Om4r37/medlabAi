@@ -23,10 +23,13 @@ Appointments
             <option value="{{ location.id }}">{{ location.name }}</option>
             {% endfor %}
         </select><br>
-        <label for="birthday">Day:</label><br>
-        <input type="date" min="{{ current_date }}" required><br>
+        <label for="date">Day:</label><br>
+        <input type="date" id="date" name="date" min="{{ current_date }}" required hx-get="/times" hx-target="#time"
+            hx-trigger="change"><br>
         <label for="time">Time:</label><br>
-        <input type="time" id="time" name="time" required><br>
+        <select id="time" name="time" required>
+            <option disabled>pick a day first</option>
+        </select><br>
         <button id="save" type="submit">Create Appointment</button>
     </div>
 </form>

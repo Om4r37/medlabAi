@@ -26,3 +26,10 @@ def appoint():
             types=db.execute("SELECT * FROM tests"),
             locations=db.execute("SELECT * FROM locations"),
         )
+
+
+@bp.route("/times")
+@login_required
+def times():
+    print(request.args.get("date"))
+    return render_template("times.jinja")
