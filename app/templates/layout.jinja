@@ -7,13 +7,14 @@
     <link rel="icon" href="/static/logo.ico">
     <link href="/static/styles.css" rel="stylesheet">
     <script src="/static/scripts.js"></script>
-    <script src="/static/htmx.js"></script>
+    <script src="/static/htmx.min.js"></script>
     <title>Medical Lab System: {% block title %}{% endblock %}</title>
 </head>
 
 <body onload="highlight( {{ tab }} );">
     <div class="navbar">
-        <div class="navbar-logo"><img src="/static/logo.svg" style="height: 1.7rem; translate: -15% 15%;">IntelliPath
+        <div class="navbar-logo"><img src="/static/logo.svg" style="height: 1.7rem; translate: -15% 15%;">
+            IntelliPath
         </div>
         {% if session["user_id"] %}
         <ul class="navbar-tabs">
