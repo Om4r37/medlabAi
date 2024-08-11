@@ -13,7 +13,7 @@ def appointments():
         "SELECT * FROM appointments WHERE user_id = ?",
         session["user_id"],
     )
-    return render_template("appointments.jinja", rows=rows)
+    return render_template("appointments/appointments.jinja", rows=rows)
 
 
 @bp.route("/appoint", methods=["GET", "POST"])
@@ -21,7 +21,7 @@ def appointments():
 def appoint():
     if request.method == "GET":
         return render_template(
-            "appoint.jinja",
+            "appointments/appoint.jinja",
             current_date=str(datetime.now())[:10],
             types=db.execute("SELECT * FROM tests"),
             locations=db.execute("SELECT * FROM locations"),
@@ -32,4 +32,4 @@ def appoint():
 @login_required
 def times():
     print(request.args.get("date"))
-    return render_template("times.jinja")
+    return render_template("appointments/times.jinja")
