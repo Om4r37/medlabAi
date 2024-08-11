@@ -20,7 +20,7 @@
             7. user information
     B. Project tech stack:
         Backend: flask
-        Frontend: HTML, CSS, JS
+        Frontend: HTML, CSS, JS, htmx, jinja
         Database: SQLite
         ML libraries: scikit-learn, pandas
         Hosting: Azure

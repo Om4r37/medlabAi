@@ -10,7 +10,7 @@ A web application designed to classify medical test results as normal or abnorma
 ## Tools Used
 - Design Tool: Figma
 - Programming Languages: HTML, CSS, Javascript, Python
-- Web Frameworks: Bootstrap, Flask
+- Web Frameworks: htmx, Flask
 - Machine Learning Libraries: scikit-learn, pandas
 - Database: SQLite
 - Version Control: Git and GitHub
