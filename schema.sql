@@ -31,6 +31,13 @@ CREATE TABLE tests (
     name TEXT NOT NULL
 );
 
+CREATE TABLE prerequisites (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    test_id INTEGER NOT NULL,
+    FOREIGN KEY (test_id) REFERENCES tests (id)
+);
+
 CREATE TABLE appointments (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     time TEXT NOT NULL,

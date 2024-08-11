@@ -190,3 +190,29 @@ a {
         max-width: 100px;
     }
 }
+
+.btn {
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.blue {
+    background-color: #007bff;
+}
+
+.blue:hover {
+    background-color: #0056b3;
+}
+
+.red {
+    margin-top: 2rem;
+    background-color: #dc3545;
+}
+
+.red:hover {
+    background-color: #c82333;
+}

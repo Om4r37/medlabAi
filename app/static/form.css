@@ -29,33 +29,6 @@ form div * {
     margin: 8px 0;
 }
 
-#save,
-#delete {
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#save {
-    background-color: #007bff;
-}
-
-#save:hover {
-    background-color: #0056b3;
-}
-
-#delete {
-    margin-top: 2rem;
-    background-color: #dc3545;
-}
-
-#delete:hover {
-    background-color: #c82333;
-}
-
 .mid {
     margin-left: 50%;
     transform: translateX(-50%);

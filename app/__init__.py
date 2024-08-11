@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_session import Session
 from app.routes import auth, index, appointments, results
 
@@ -25,5 +25,9 @@ def create_app():
         response.headers["Expires"] = 0
         response.headers["Pragma"] = "no-cache"
         return response
+
+    @app.errorhandler(404)
+    def not_found(e):
+        return render_template("error.jinja", message=str(e)[3:], code=404)
 
     return app
