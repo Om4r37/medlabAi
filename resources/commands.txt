@@ -1,9 +1,13 @@
+initialize the project:
+sqlite3 database.db
+.read schema.sql
+.quit
+python app/database.py
+
 run project:
-flask --debug run
+(python -m) flask --debug run
 or
-python -m flask --debug run
-or
-python app.py
+python run.py
 
 remove deleted remote branches:
 git fetch --prune
