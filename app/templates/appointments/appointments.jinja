@@ -8,11 +8,12 @@ Appointments
 
 {% block main %}
 <link rel="stylesheet" href="static/table.css">
-<script src="static/sorttable.js"></script>
+<script src="static/tablefilter.js"></script>
+
 <h2>Appointments</h2>
 {% if rows %}
 <div class="table-container">
-    <table class="sortable" id="filter">
+    <table class="sortable">
         <thead>
             <tr>
                 <th scope="col">Time</th>
@@ -33,6 +34,33 @@ Appointments
         </tbody>
     </table>
 </div>
+<script data-config>
+    // TableFilter settings
+    var tfConfig = {
+        base_path: "static/TableFilter/",
+        col_0: "none",
+        col_1: "select",
+        col_2: "select",
+        col_3: "none",
+        popup_filters: true,
+        headers: false,
+        //sticky_headers: true,
+        //alternate_rows: true,
+        mark_active_columns: true,
+        //enable_default_theme: true
+        //rows_counter: true,
+        //btn_reset: true,
+        //extensions: [{
+        //    name: 'sort'
+        //}],
+    };
+
+    // Instantiate TableFilter
+    var tf = new TableFilter(document.querySelector("table"), tfConfig);
+    tf.init();
+</script>
+<script src="static/sorttable.js"></script>
+
 {% else %}
 You have no appointments.
 {% endif %}
