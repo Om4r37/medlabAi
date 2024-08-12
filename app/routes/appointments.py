@@ -70,12 +70,11 @@ def periods():
 
     # Get existing appointments for the day
     existing_appointments = db.execute(
-        "SELECT time FROM appointments WHERE date(time) = ? AND test_id = ?",
+        "SELECT time FROM appointments WHERE date(time) = ? AND test_id = ?"
         date,
         test_id
     )
     booked_periods = set(appointment['time'] for appointment in existing_appointments)
-
     available_periods = []
     current_time = opening_time
     time_slot = timedelta(minutes=test_duration)
@@ -86,6 +85,7 @@ def periods():
         current_time += time_slot
 
     return render_template("appointments/periods.jinja", periods=available_periods)
+
 
 
 @bp.route("/clear")
