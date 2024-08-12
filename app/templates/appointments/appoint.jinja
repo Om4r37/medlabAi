@@ -8,7 +8,7 @@ Appointments
 
 {% block main %}
 <link rel="stylesheet" href="/static/form.css">
-<h2>Appointments</h2>
+<h2>Create an Appointment</h2>
 <form action="/appoint" method="post">
     <div>
         <label for="test">Type:</label><br>
@@ -25,7 +25,7 @@ Appointments
         </select><br>
         <label for="date">Day:</label><br>
         <input type="date" id="date" name="date" min="{{ current_date }}" required hx-get="/times" hx-target="#time"
-            hx-trigger="change"><br>
+            hx-trigger="change, change from:[name='test']" hx-include="[name='test'], [name='date']"><br>
         <label for="time">Time:</label><br>
         <select id="time" name="time" required>
             <option disabled>pick a day first</option>

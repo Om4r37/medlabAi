@@ -1,13 +1,17 @@
 from cs50 import SQL
 import os, sys
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from config import TEST_TYPES, LOCATIONS
-
-db = SQL("sqlite:///database.db")
 
 
 def init():
+    open("database.db", "w").close()
+    db = SQL("sqlite:///database.db")
+    with open("schema.sql", "r") as file:
+        for query in file.read().split(";")[:-1]:
+            db.execute(query)
+
     for location in LOCATIONS:
         db.execute("INSERT INTO locations (name) VALUES (?);", location)
 
@@ -25,5 +29,8 @@ def init():
             )
 
 
-if __name__ == "__main__":
+try:
+    db = SQL("sqlite:///database.db")
+except:
     init()
+    db = SQL("sqlite:///database.db")

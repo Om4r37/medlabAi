@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, session, request, redirect
+from flask import Blueprint, render_template, session, request, redirect, flash
 from app.database import db
 from app.utils import login_required
 from datetime import datetime
+from config import OPENING_TIME, CLOSING_TIME
 
 bp = Blueprint("appointments", __name__)
 
@@ -49,6 +50,7 @@ def appoint():
         request.form.get("location"),
         f"{request.form.get("date")} {request.form.get("time")}",
     )
+    flash("Appointment scheduled successfully!")
     return redirect("/appointments")
 
 
@@ -56,13 +58,18 @@ def appoint():
 @login_required
 def times():
     date = request.args.get("date")
-    return render_template("appointments/times.jinja")
+    if date == "":
+        return "<option disabled>pick a day first</option>"
+    test = request.args.get("test")
+    times = [test]
+    return render_template("appointments/times.jinja", times=times)
 
 
 @bp.route("/clear")
 @login_required
 def clear():
     db.execute("DELETE FROM appointments WHERE user_id = ?;", session["user_id"])
+    flash("Appointments cleared successfully!")
     return redirect("/appointments")
 
 
@@ -74,4 +81,5 @@ def remove():
         request.args.get("id"),
         session["user_id"] # important to prevent users from deleting other users' appointments
     )
+    flash("Appointment removed successfully!")
     return redirect("/appointments")

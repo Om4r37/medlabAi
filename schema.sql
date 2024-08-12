@@ -13,7 +13,6 @@ CREATE TABLE users (
     residence boolean, -- 0: rural, 1: urban
     smoke INTEGER, -- 0: unknown, 1: never, 2: former, 3: current
     pregnancies INTEGER,
-    -- cp INTEGER, -- 1: typical angina, 2: atypical angina, 3: non-anginal pain, 4: asymptomatic
     exng boolean,
     heart_disease boolean
 );
@@ -27,7 +26,7 @@ CREATE TABLE locations (
 
 CREATE TABLE tests (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    duration INTEGER NOT NULL,
+    duration INTEGER NOT NULL, -- in minutes
     name TEXT NOT NULL
 );
 
