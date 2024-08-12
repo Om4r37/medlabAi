@@ -60,6 +60,7 @@ def periods():
     date = request.args.get("date")
     if date == '':
         return "<option disabled>pick a day first</option>"
+    location_id = request.args.get("location")
     test_id = request.args.get("test")
     test_name = db.execute("SELECT name FROM tests WHERE id = ?", test_id)[0]['name']
     test_duration = TEST_TYPES[test_name]['duration']
@@ -70,9 +71,10 @@ def periods():
 
     # Get existing appointments for the day
     existing_appointments = db.execute(
-        "SELECT time FROM appointments WHERE date(time) = ? AND test_id = ?",
+        "SELECT time FROM appointments WHERE date(time) = ? AND test_id = ? AND location_id = ?;",
         date,
-        test_id
+        test_id,
+        location_id
     )
     booked_periods = set(appointment['time'] for appointment in existing_appointments)
     available_periods = []
