@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, session, request, redirect, flash
 from app.database import db
 from app.utils import login_required
 from datetime import datetime
+from config import OPENING_TIME, CLOSING_TIME
 
 bp = Blueprint("appointments", __name__)
 
@@ -57,7 +58,11 @@ def appoint():
 @login_required
 def times():
     date = request.args.get("date")
-    return render_template("appointments/times.jinja")
+    if date == "":
+        return "<option disabled>pick a day first</option>"
+    test = request.args.get("test")
+    times = [test]
+    return render_template("appointments/times.jinja", times=times)
 
 
 @bp.route("/clear")

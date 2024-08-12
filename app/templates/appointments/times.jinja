@@ -1,2 +1,3 @@
-<option>1:00 PM</option>
-<option>2:00 AM</option>
+{% for time in times %}
+<option> {{ time }} </option>
+{% endfor %}

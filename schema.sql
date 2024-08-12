@@ -26,7 +26,7 @@ CREATE TABLE locations (
 
 CREATE TABLE tests (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    duration INTEGER NOT NULL,
+    duration INTEGER NOT NULL, -- in minutes
     name TEXT NOT NULL
 );
 
