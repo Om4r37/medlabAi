@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/static/logo.ico">
     <link href="/static/styles.css" rel="stylesheet">
-    <script src="/static/scripts.js"></script>
     <script src="/static/htmx.min.js"></script>
+
     <title>Medical Lab System: {% block title %}{% endblock %}</title>
 </head>
 
-<body onload="highlight( {{ tab }} );">
+<body>
     <div class="navbar">
         <div class="navbar-logo"><img src="/static/logo.svg" style="height: 1.7rem; translate: -15% 15%;">
             IntelliPath
@@ -51,5 +51,15 @@
         {% block main %}{% endblock %}
     </main>
 </body>
+<script>
+    function closeFlash() {
+        document.getElementById('flash').style.display = 'none';
+        document.getElementsByTagName('main')[0].style.marginTop = '15px';
+    }
+    const childNo = {{ tab_number }};
+    const navbarTabs = document.querySelectorAll('.navbar-tab');
+    navbarTabs[childNo].classList.add('highlight');
+    navbarTabs[childNo + 3].classList.add('highlight');
+</script>
 
 </html>
