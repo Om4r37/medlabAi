@@ -54,9 +54,9 @@ def appoint():
     return redirect("/appointments")
 
 
-@bp.route("/times")
+@bp.route("/periods")
 @login_required
-def times():
+def periods():
     date = request.args.get("date")
     if date == '':
         return "<option disabled>pick a day first</option>"
@@ -70,21 +70,22 @@ def times():
 
     # Get existing appointments for the day
     existing_appointments = db.execute(
-        "SELECT time FROM appointments WHERE date(time) = ? AND test_id = ?",
-        date, test_id
+        "SELECT time FROM appointments WHERE date(time) = ? AND test_id = ?"
+        date,
+        test_id
     )
-    booked_times = set(appointment['time'] for appointment in existing_appointments)
-
-    available_times = []
+    booked_periods = set(appointment['time'] for appointment in existing_appointments)
+    available_periods = []
     current_time = opening_time
     time_slot = timedelta(minutes=test_duration)
 
     while current_time + time_slot <= closing_time:
-        if current_time.strftime("%Y-%m-%d %H:%M") not in booked_times:
-            available_times.append(current_time.strftime("%H:%M"))
+        if current_time.strftime("%Y-%m-%d %H:%M") not in booked_periods:
+            available_periods.append(current_time.strftime("%H:%M"))
         current_time += time_slot
 
-    return render_template("appointments/times.jinja", times=available_times)
+    return render_template("appointments/periods.jinja", periods=available_periods)
+
 
 
 @bp.route("/clear")
