@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, session, request, redirect, flash
 from app.database import db
 from app.utils import login_required
-from datetime import datetime
-from config import OPENING_TIME, CLOSING_TIME
+from datetime import datetime, timedelta
+from config import OPENING_TIME, CLOSING_TIME, TEST_TYPES
 
 bp = Blueprint("appointments", __name__)
 
@@ -58,11 +58,33 @@ def appoint():
 @login_required
 def times():
     date = request.args.get("date")
-    if date == "":
+    if date == '':
         return "<option disabled>pick a day first</option>"
-    test = request.args.get("test")
-    times = [test]
-    return render_template("appointments/times.jinja", times=times)
+    test_id = request.args.get("test")
+    test_name = db.execute("SELECT name FROM tests WHERE id = ?", test_id)[0]['name']
+    test_duration = TEST_TYPES[test_name]['duration']
+
+    # Convert opening and closing times to datetime objects
+    opening_time = datetime.strptime(f"{date} {OPENING_TIME}", "%Y-%m-%d %H:%M")
+    closing_time = datetime.strptime(f"{date} {CLOSING_TIME}", "%Y-%m-%d %H:%M")
+
+    # Get existing appointments for the day
+    existing_appointments = db.execute(
+        "SELECT time FROM appointments WHERE date(time) = ? AND test_id = ?",
+        date, test_id
+    )
+    booked_times = set(appointment['time'] for appointment in existing_appointments)
+
+    available_times = []
+    current_time = opening_time
+    time_slot = timedelta(minutes=test_duration)
+
+    while current_time + time_slot <= closing_time:
+        if current_time.strftime("%Y-%m-%d %H:%M") not in booked_times:
+            available_times.append(current_time.strftime("%H:%M"))
+        current_time += time_slot
+
+    return render_template("appointments/times.jinja", times=available_times)
 
 
 @bp.route("/clear")
