@@ -4,20 +4,21 @@
 Appointments
 {% endblock %}
 
-{% set tab = 1 %}
+{% set tab_number = 1 %}
 
 {% block main %}
 <link rel="stylesheet" href="static/table.css">
+<script src="static/sorttable.js"></script>
 <h2>Appointments</h2>
 {% if rows %}
 <div class="table-container">
-    <table>
+    <table class="sortable" id="filter">
         <thead>
             <tr>
                 <th scope="col">Time</th>
-                <th scope="col">Location</th>
-                <th scope="col">Type</th>
-                <th scope="col">cancel</th>
+                <th scope="col" class="sorttable_nosort">Location</th>
+                <th scope="col" class="sorttable_nosort">Type</th>
+                <th scope="col" class="sorttable_nosort">cancel</th>
             </tr>
         </thead>
         <tbody>

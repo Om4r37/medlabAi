@@ -28,3 +28,32 @@ tr {
     border-width: 0;
     border-bottom-width: 1px;
 }
+
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+    content: " \25B4\25BE"
+}
+
+table.sortable th::after,
+th.sorttable_sorted::after,
+th.sorttable_sorted_reverse::after {
+    content: " ";
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.5rem;
+}
+
+th.sorttable_sorted::after {
+    background: url(ascending.svg);
+    background-size: cover;
+}
+
+th.sorttable_sorted_reverse::after {
+    background: url(descending.svg);
+    background-size: cover;
+}
+
+#sorttable_sortfwdind,
+#sorttable_sortrevind {
+    display: none;
+}
