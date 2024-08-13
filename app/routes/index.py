@@ -10,6 +10,8 @@ bp = Blueprint("index", __name__)
 @login_required
 def index():
     if request.method == "GET":
+        if session["user_id"] == 1:
+            return render_template("admin/dashboard.jinja")
         user_info = db.execute("SELECT * FROM users WHERE id = ?;", session["user_id"])
         user_info = user_info[0] if user_info else {}
         return render_template(
