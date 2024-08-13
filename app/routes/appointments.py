@@ -10,7 +10,23 @@ bp = Blueprint("appointments", __name__)
 @bp.route("/appointments")
 @login_required
 def appointments():
-    rows = db.execute('''
+    if session["user_id"] == 1:
+        rows = db.execute('''
+    SELECT
+        appointments.id,
+        appointments.time,
+        locations.name AS location,
+        tests.name AS type,
+        users.full_name AS name,
+        users.username AS username
+    FROM appointments
+    JOIN users ON appointments.user_id = users.id
+    JOIN locations ON appointments.location_id = locations.id
+    JOIN tests ON appointments.test_id = tests.id;'''
+        )
+        return render_template("admin/appointments.jinja", rows=rows)
+    else:
+        rows = db.execute('''
 SELECT
     appointments.id,
     appointments.time,
