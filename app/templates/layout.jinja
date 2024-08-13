@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/static/logo.ico">
-    <link href="/static/styles.css" rel="stylesheet">
-    <script src="/static/htmx.min.js"></script>
+    <link rel="icon" href="/static/logo/logo.ico">
+    <link href="/static/styles/styles.css" rel="stylesheet">
+    <script src="/static/scripts/htmx.min.js"></script>
 
     <title>Medical Lab System: {% block title %}{% endblock %}</title>
 </head>
 
 <body>
     <div class="navbar">
-        <div class="navbar-logo"><img src="/static/logo.svg" style="height: 1.7rem; translate: -15% 15%;">
+        <div class="navbar-logo"><img src="/static/logo/logo.svg" style="height: 1.7rem; translate: -15% 15%;">
             IntelliPath
         </div>
         {% if session["user_id"] %}

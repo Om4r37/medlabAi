@@ -1,7 +1,9 @@
-.venv
-.idx
-.vscode
-.idea
 *.db
 flask_session
 __pycache__
+.venv
+
+# Editors configeration
+.idx
+.vscode
+.idea
