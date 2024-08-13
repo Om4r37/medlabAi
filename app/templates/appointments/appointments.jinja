@@ -8,7 +8,7 @@ Appointments
 
 {% block main %}
 <link rel="stylesheet" href="static/table.css">
-<script src="static/tablefilter.js"></script>
+<script src="static/TableFilter/tablefilter.js"></script>
 
 <h2>Appointments</h2>
 {% if rows %}
@@ -54,7 +54,7 @@ Appointments
     var tf = new TableFilter(document.querySelector("table"), tfConfig);
     tf.init();
 </script>
-<script src="static/sorttable.js"></script>
+<script src="static/Sortable/sorttable.js"></script>
 
 {% else %}
 You have no appointments.

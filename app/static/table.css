@@ -44,12 +44,12 @@ th.sorttable_sorted_reverse::after {
 }
 
 th.sorttable_sorted::after {
-    background: url(ascending.svg);
+    background: url(Sortable/ascending.svg);
     background-size: cover;
 }
 
 th.sorttable_sorted_reverse::after {
-    background: url(descending.svg);
+    background: url(Sortable/descending.svg);
     background-size: cover;
 }
 
