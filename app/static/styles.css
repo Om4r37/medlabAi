@@ -115,7 +115,7 @@ a {
     font-size: large;
 }
 
-@media (max-width: 668px) {
+@media (max-width: 768px) {
     #flash {
         width: 80vw;
         left: 5vw;
@@ -152,7 +152,7 @@ a {
     display: none;
 }
 
-@media (max-width: 668px) {
+@media (max-width: 768px) {
     .navbar {
         flex-direction: row;
         align-items: center;
