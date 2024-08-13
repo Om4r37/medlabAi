@@ -7,8 +7,8 @@ Appointments
 {% set tab_number = 1 %}
 
 {% block main %}
-<link rel="stylesheet" href="static/table.css">
-<script src="static/TableFilter/tablefilter.js"></script>
+<link rel="stylesheet" href="static/styles/table.css">
+<script src="static/scripts/TableFilter/tablefilter.js"></script>
 
 <h2>Appointments</h2>
 {% if rows %}
@@ -37,7 +37,7 @@ Appointments
 <script data-config>
     // TableFilter settings
     var tfConfig = {
-        base_path: "static/TableFilter/",
+        base_path: "static/scripts/TableFilter/",
         col_widths: ["150px", "150px", "100px", "100px"],
         col_0: "none",
         col_1: "select",
@@ -55,7 +55,7 @@ Appointments
     var tf = new TableFilter(document.querySelector("table"), tfConfig);
     tf.init();
 </script>
-<script src="static/Sortable/sorttable.js"></script>
+<script src="static/scripts/Sortable/sorttable.js"></script>
 
 {% else %}
 You have no appointments.
