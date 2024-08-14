@@ -65,5 +65,11 @@ CREATE TABLE stats (
     private_work INTEGER Default 0,
     self_employed INTEGER Default 0,
     gov_work INTEGER Default 0,
-    children INTEGER Default 0
+    children INTEGER Default 0,
+    ages_0_15 INTEGER Default 0,
+    ages_16_30 INTEGER Default 0,
+    ages_31_45 INTEGER Default 0,
+    ages_46_60 INTEGER Default 0,
+    ages_61_75 INTEGER Default 0,
+    ages_76_ INTEGER Default 0
 );

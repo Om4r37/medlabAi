@@ -12,7 +12,7 @@ Appointments
 
 <h2>Appointments</h2>
 {% if rows %}
-<div class="table-container" style="max-width: 660px;">
+<div class="table-container" style="max-width: 760px;">
     <table class="sortable">
         <thead>
             <tr>
@@ -20,6 +20,7 @@ Appointments
                 <th scope="col">Time</th>
                 <th scope="col" class="sorttable_nosort">Location</th>
                 <th scope="col" class="sorttable_nosort">Type</th>
+                <th scope="col" class="sorttable_nosort">Fill</th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,7 @@ Appointments
                 <td>{{ row.time }}</td>
                 <td>{{ row.location }}</td>
                 <td>{{ row.type }}</td>
+                <td><a href="/fill?id={{row.id}}">📃</a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -38,7 +40,7 @@ Appointments
     // TableFilter settings
     var tfConfig = {
         base_path: "static/scripts/TableFilter/",
-        col_widths: ["250px", "150px", "150px", "100px"],
+        col_widths: ["250px", "150px", "150px", "100px", "100px"],
         col_1: "none",
         col_2: "select",
         col_3: "select",
