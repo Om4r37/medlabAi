@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_session import Session
-from app.routes import auth, index, appointments, results
+from app.routes import auth, index, appointments, results, admin
 
 
 def create_app():
@@ -17,6 +17,7 @@ def create_app():
     app.register_blueprint(index.bp)
     app.register_blueprint(appointments.bp)
     app.register_blueprint(results.bp)
+    app.register_blueprint(admin.bp)
 
     @app.after_request
     def after_request(response):

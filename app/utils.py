@@ -14,3 +14,17 @@ def login_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+def admin_required(f):
+    """
+    Decorate routes to require login.
+    """
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user_id") != 1:
+            return redirect("/")
+        return f(*args, **kwargs)
+
+    return decorated_function
