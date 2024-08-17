@@ -7,30 +7,37 @@ Dashboard
 {% set tab_number = 0 %}
 
 {% block main %}
-<script type="text/javascript" src="static/scripts/loader.js"></script>
-<script type="text/javascript">
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
+<script src="/static/scripts/chart.min.js"></script>
+<h1>Dashboard</h1>
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
-    function drawChart() {
+<script>
+    var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+    var yValues = [55, 49, 44, 24, 15];
+    var barColors = [
+        "#b91d47",
+        "#00aba9",
+        "#2b5797",
+        "#e8c3b9",
+        "#1e7145"
+    ];
 
-        var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Work', 11],
-            ['Eat', 2],
-            ['Commute', 2],
-            ['Watch TV', 2],
-            ['Sleep', 7]
-        ]);
-
-        var options = {
-            title: 'My Daily Activities'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-        chart.draw(data, options);
-    }
+    new Chart("myChart", {
+        type: "pie",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "World Wide Wine Production 2018"
+            }
+        }
+    });
 </script>
-<div id="piechart" style="width: 900px; height: 500px;"></div>
 
 {% endblock %}
