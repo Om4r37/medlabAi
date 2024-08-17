@@ -10,3 +10,10 @@ bp = Blueprint("admin", __name__)
 def fill():
     if request.method == "GET":
         return render_template("admin/fill.jinja")
+
+
+@bp.route("/user")
+@admin_required
+def user():
+    user = db.execute("SELECT * FROM users WHERE id = ?;", request.args.get("id"))[0]
+    return render_template("admin/user.jinja", user=user)

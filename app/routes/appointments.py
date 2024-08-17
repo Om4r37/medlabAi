@@ -15,6 +15,7 @@ def appointments():
     SELECT
         appointments.id,
         appointments.time,
+        appointments.user_id,
         locations.name AS location,
         tests.name AS type,
         users.full_name AS name,
