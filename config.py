@@ -40,6 +40,7 @@ STATS = (
     "exng",
     "rural",
     "urban",
+    "never_worked",
     "private_work",
     "self_employed",
     "gov_work",

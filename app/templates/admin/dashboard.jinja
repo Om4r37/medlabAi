@@ -7,71 +7,115 @@ Dashboard
 {% set tab_number = 0 %}
 
 {% block main %}
-<style>
-    canvas {
-        max-height: 500px;
-    }
-</style>
+<link rel="stylesheet" href="static/styles/dashboard.css">
 <script src="/static/scripts/chart.min.js"></script>
 <h1>Dashboard</h1>
+<div id="container">
+    <canvas id="smoke"></canvas>
+    <canvas id="work"></canvas>
+</div>
 {% for stat in stats %}
-{{ stat.name }}: {{ stat.value }}<br>
+{{ loop.index }}- {{ stat.name }}: {{ stat.value }}<br>
 {% endfor %}
+{{ stats[22] }}
 <canvas id="pieChart"></canvas>
 <canvas id="donutChart"></canvas>
 
 <script>
-    // Pie Chart
-    var pieData = {
-        labels: ["Label 1", "Label 2", "Label 3"],
-        datasets: [{
-            data: [30, 50, 20],
-            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-            hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-        }]
-    };
-
-    var pieOptions = {
+    // Smoke Chart
+    var pieChart = new Chart(document.getElementById("smoke"), {
+        type: 'pie',
+        data: {
+            labels: ["Current Smokers", "Former Smokers", "Never Smoked"],
+            datasets: [{
+                data: [{{ stats[6].value }}, {{ stats[7].value }}, {{ stats[8].value }}],
+    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+            }]
+        },
+    options: {
         responsive: true,
-        plugins: {
+            plugins: {
             title: {
                 display: true,
-                text: 'Custom Chart Title'
+                    text: 'Smoking Status',
+                        font: {
+                    size: 18
+                }
+            },
+            legend: {
+                labels: {
+                    font: {
+                        size: 14
+                    }
+                }
             }
         }
-    };
+    }
+    });
 
-    var pieChart = new Chart(document.getElementById("pieChart"), {
+    // Work Chart
+    var pieChart = new Chart(document.getElementById("work"), {
         type: 'pie',
-        data: pieData,
-        options: pieOptions
+        data: {
+            labels: ["Never Worked", "Private Work", "Self Employed", "Goverment", "Children"],
+            datasets: [{
+                data: [
+                    {{ stats[13].value }},
+                    {{ stats[14].value }},
+                    {{ stats[15].value }},
+                    {{ stats[16].value }},
+                    {{ stats[17].value }}
+                ],
+    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4bc0c0", "#c9cbcf"],
+        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4bc0c0", "#c9cbcf"]
+            }]
+        },
+    options: {
+        responsive: true,
+            plugins: {
+            title: {
+                display: true,
+                    text: 'Work Type',
+                        font: {
+                    size: 18
+                }
+            },
+            legend: {
+                labels: {
+                    font: {
+                        size: 14
+                    }
+                }
+            }
+        }
+    }
     });
 
     // Donut Chart
-    var donutData = {
-        labels: ["Label 1", "Label 2", "Label 3"],
-        datasets: [{
-            data: [40, 30, 30],
-            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-            hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-        }]
-    };
-
-    var donutOptions = {
-        responsive: true,
-        cutoutPercentage: 50,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Custom Chart Title'
-            }
-        }
-    };
-
     var donutChart = new Chart(document.getElementById("donutChart"), {
         type: 'doughnut',
-        data: donutData,
-        options: donutOptions
+        data: {
+            labels: ["Label 1", "Label 2", "Label 3"],
+            datasets: [{
+                data: [40, 30, 30],
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+                hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+            }]
+        },
+        options: {
+            responsive: true,
+            cutoutPercentage: 50,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Custom Chart Title',
+                    font: {
+                        size: 18
+                    }
+                }
+            }
+        }
     });
 </script>
 {% endblock %}
