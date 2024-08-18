@@ -7,39 +7,71 @@ Dashboard
 {% set tab_number = 0 %}
 
 {% block main %}
+<style>
+    canvas {
+        max-height: 500px;
+    }
+</style>
 <script src="/static/scripts/chart.min.js"></script>
 <h1>Dashboard</h1>
 {% for stat in stats %}
 {{ stat.name }}: {{ stat.value }}<br>
 {% endfor %}
-<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-<script>
-    var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-    var yValues = [55, 49, 44, 24, 15];
-    var barColors = [
-        "#b91d47",
-        "#00aba9",
-        "#2b5797",
-        "#e8c3b9",
-        "#1e7145"
-    ];
+<canvas id="pieChart"></canvas>
+<canvas id="donutChart"></canvas>
 
-    new Chart("myChart", {
-        type: "pie",
-        data: {
-            labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-            }]
-        },
-        options: {
+<script>
+    // Pie Chart
+    var pieData = {
+        labels: ["Label 1", "Label 2", "Label 3"],
+        datasets: [{
+            data: [30, 50, 20],
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+        }]
+    };
+
+    var pieOptions = {
+        responsive: true,
+        plugins: {
             title: {
                 display: true,
-                text: "World Wide Wine Production 2018"
+                text: 'Custom Chart Title'
             }
         }
+    };
+
+    var pieChart = new Chart(document.getElementById("pieChart"), {
+        type: 'pie',
+        data: pieData,
+        options: pieOptions
+    });
+
+    // Donut Chart
+    var donutData = {
+        labels: ["Label 1", "Label 2", "Label 3"],
+        datasets: [{
+            data: [40, 30, 30],
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+        }]
+    };
+
+    var donutOptions = {
+        responsive: true,
+        cutoutPercentage: 50,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Custom Chart Title'
+            }
+        }
+    };
+
+    var donutChart = new Chart(document.getElementById("donutChart"), {
+        type: 'doughnut',
+        data: donutData,
+        options: donutOptions
     });
 </script>
-
 {% endblock %}

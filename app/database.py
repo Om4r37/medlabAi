@@ -39,3 +39,5 @@ try:
 except:
     init()
     db = SQL("sqlite:///database.db")
+
+import faker
