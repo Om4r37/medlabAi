@@ -26,6 +26,33 @@ TEST_TYPES = {
     },
 }
 
+STATS = (
+    "current_appointments",
+    "total_results",
+    "users_count",
+    "male",
+    "female",
+    "married",
+    "current_smokers",
+    "former_smokers",
+    "never_smokers",
+    "heart_disease",
+    "exng",
+    "rural",
+    "urban",
+    "never_worked",
+    "private_work",
+    "self_employed",
+    "gov_work",
+    "children",
+    "ages_0_15",
+    "ages_16_30",
+    "ages_31_45",
+    "ages_46_60",
+    "ages_61_75",
+    "ages_76_",
+)
+
 
 # flask config
 class Config:

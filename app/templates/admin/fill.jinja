@@ -10,6 +10,10 @@ Test Results Form
 <link rel="stylesheet" href="/static/styles/form.css">
 <h2>Fill Test Results</h2>
 <form action="/fill" method="post">
-
+    {% block fields %}{% endblock fields %}<br><br>
+    <button class="blue btn" type="submit">Create Appointment</button><br><br>
+    <button onclick="window.history.back()" class="btn" style="color:black;">
+        Go Back
+    </button>
 </form>
 {% endblock %}

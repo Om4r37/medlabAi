@@ -17,6 +17,7 @@ User Information
 <h2>User Information</h1>
     <form action="/" method="post">
         <div>
+            Username: &nbsp; {{ user["username"] }}<br><br>
             {% if user["full_name"] !=None %}
             <label for="full_name">Full Name</label><br>
             <input value="{{ user['full_name'] }}" type="text" id="full_name" name="full_name" disabled>
@@ -111,8 +112,7 @@ User Information
             <label for="heart_disease">Heart Disease</label>
             <br><br>
             {% endif %}
-            <button onclick="window.history.back()"
-                style="padding: 0.5rem 1rem; border-radius: 0.5rem; border: none; cursor: pointer;">
+            <button onclick="window.history.back()" class="mid btn" style="color: black;">
                 Go Back
             </button>
         </div>
