@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+
 from cs50 import SQL
 import os, sys
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from config import TEST_TYPES, LOCATIONS
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import TEST_TYPES, LOCATIONS, STATS
 
 
 def init():
@@ -11,6 +13,9 @@ def init():
     with open("schema.sql", "r") as file:
         for query in file.read().split(";")[:-1]:
             db.execute(query)
+
+    for stat in STATS:
+        db.execute("INSERT INTO stats (name) VALUES (?);", stat)
 
     for location in LOCATIONS:
         db.execute("INSERT INTO locations (name) VALUES (?);", location)
