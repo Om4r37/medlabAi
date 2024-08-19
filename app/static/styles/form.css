@@ -33,3 +33,11 @@ form div * {
     margin-left: 50%;
     transform: translateX(-50%);
 }
+
+table {
+    margin: auto;
+}
+
+td {
+    text-align: initial;
+}
