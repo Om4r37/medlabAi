@@ -1,6 +1,17 @@
 canvas {
     max-height: 400px;
     max-width: 300px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0.7rem;
+    padding: 0.5rem;
+    background-color: #e7e7e7;
+    color: #161616;
 }
 
 #container {

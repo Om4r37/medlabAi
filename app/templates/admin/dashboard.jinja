@@ -11,26 +11,184 @@ Dashboard
 <script src="/static/scripts/chart.min.js"></script>
 <h1>Dashboard</h1>
 <div id="container">
+    <h2>Users Count: {{ stats[2].value }}</h2>
+    <h2>Current Appointments: {{ stats[0].value }}</h2>
+    <h2>Total Results: {{ stats[1].value }}</h2>
+    <canvas id="age"></canvas>
+    <canvas id="gender"></canvas>
+    <canvas id="married"></canvas>
+    <canvas id="residence"></canvas>
+    <canvas id="exng"></canvas>
+    <canvas id="heart_disease"></canvas>
     <canvas id="smoke"></canvas>
     <canvas id="work"></canvas>
 </div>
-{% for stat in stats %}
-{{ loop.index }}- {{ stat.name }}: {{ stat.value }}<br>
-{% endfor %}
-{{ stats[22] }}
-<canvas id="pieChart"></canvas>
-<canvas id="donutChart"></canvas>
 
 <script>
-    // Smoke Chart
-    var pieChart = new Chart(document.getElementById("smoke"), {
+    var genderChart = new Chart(document.getElementById("age"), {
+        type: 'bar',
+        data: {
+            labels: ["0-15", "16-30", "31-45", "46-60", "61-75", "76+"],
+            datasets: [{
+                data: [
+                    {{ stats[18].value }},
+                    {{ stats[19].value }},
+                    {{ stats[20].value }},
+                    {{ stats[21].value }},
+                    {{ stats[22].value }},
+                    {{ stats[23].value }}
+                ],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4bc0c0", "#c9cbcf"],
+    }]
+        },
+    options: {
+        responsive: true,
+        cutout: "80%",
+        plugins: {
+            title: {
+                display: true,
+                text: 'Age Distribution',
+                font: {
+                    size: 18
+                }
+            },
+            legend: {
+                display: false
+            }
+        }
+    }
+    });
+    var genderChart = new Chart(document.getElementById("gender"), {
+        type: 'doughnut',
+        data: {
+            labels: ["Male", "Female"],
+            datasets: [{
+                data: [{{ stats[3].value }}, {{ stats[4].value }}],
+                backgroundColor: ["#36A2EB", "#FF6384"],
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: "80%",
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Gender Distribution',
+                    font: {
+                        size: 18
+                    }
+                }
+            }
+        }
+    });
+    var residenceChart = new Chart(document.getElementById("residence"), {
+        type: 'doughnut',
+        data: {
+            labels: ["Rural", "Urban"],
+            datasets: [{
+                data: [{{ stats[11].value }}, {{ stats[12].value }}],
+                backgroundColor: ["#36A2EB", "#FFCE56"],
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: "80%",
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Residence',
+                    font: {
+                        size: 18
+                    }
+                }
+            }
+        }
+    });
+    var marriedChart = new Chart(document.getElementById("married"), {
+            type: 'doughnut',
+            data: {
+                labels: ["Married", "Not married"],
+                datasets: [{
+                    data: [{{ stats[5].value }}, {{ stats[2].value - stats[5].value }}],
+            backgroundColor: ["#36A2EB", "#c9cbcf"],
+        }]
+        },
+        options: {
+            responsive: true,
+                cutout: "80%",
+                plugins: {
+                    title: {
+                        display: true,
+                            text: 'Marital Status',
+                                font: {
+                            size: 18
+                        }
+                    },
+                    legend: {
+                        display: false
+                    }
+            }
+        }
+    });
+    var exngChart = new Chart(document.getElementById("exng"), {
+        type: 'doughnut',
+        data: {
+            labels: ["No", "Yes"],
+            datasets: [{
+                data: [{{ stats[2].value - stats[10].value }}, {{ stats[10].value }}],
+                backgroundColor: ["#c9cbcf", "#FFCE56"],
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: "80%",
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Exercise Induced Angina',
+                    font: {
+                        size: 18
+                    }
+                },
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+    var heartDiseaseChart = new Chart(document.getElementById("heart_disease"), {
+        type: 'doughnut',
+        data: {
+            labels: ["Yes", "No"],
+            datasets: [{
+                data: [{{ stats[9].value }}, {{ stats[2].value - stats[9].value }}],
+                backgroundColor: ["#FF6384", "#c9cbcf"],
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: "80%",
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Heart Disease',
+                    font: {
+                        size: 18
+                    }
+                },
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+    var smokeChart = new Chart(document.getElementById("smoke"), {
         type: 'pie',
         data: {
             labels: ["Current Smokers", "Former Smokers", "Never Smoked"],
             datasets: [{
                 data: [{{ stats[6].value }}, {{ stats[7].value }}, {{ stats[8].value }}],
-    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
             }]
         },
     options: {
@@ -38,8 +196,8 @@ Dashboard
             plugins: {
             title: {
                 display: true,
-                    text: 'Smoking Status',
-                        font: {
+                text: 'Smoking Status',
+                font: {
                     size: 18
                 }
             },
@@ -53,9 +211,7 @@ Dashboard
         }
     }
     });
-
-    // Work Chart
-    var pieChart = new Chart(document.getElementById("work"), {
+    var workChart = new Chart(document.getElementById("work"), {
         type: 'pie',
         data: {
             labels: ["Never Worked", "Private Work", "Self Employed", "Goverment", "Children"],
@@ -67,8 +223,7 @@ Dashboard
                     {{ stats[16].value }},
                     {{ stats[17].value }}
                 ],
-    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4bc0c0", "#c9cbcf"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4bc0c0", "#c9cbcf"]
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4bc0c0", "#c9cbcf"],
             }]
         },
     options: {
@@ -76,8 +231,8 @@ Dashboard
             plugins: {
             title: {
                 display: true,
-                    text: 'Work Type',
-                        font: {
+                text: 'Work Type',
+                font: {
                     size: 18
                 }
             },
@@ -90,32 +245,6 @@ Dashboard
             }
         }
     }
-    });
-
-    // Donut Chart
-    var donutChart = new Chart(document.getElementById("donutChart"), {
-        type: 'doughnut',
-        data: {
-            labels: ["Label 1", "Label 2", "Label 3"],
-            datasets: [{
-                data: [40, 30, 30],
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-                hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-            }]
-        },
-        options: {
-            responsive: true,
-            cutoutPercentage: 50,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Custom Chart Title',
-                    font: {
-                        size: 18
-                    }
-                }
-            }
-        }
     });
 </script>
 {% endblock %}
