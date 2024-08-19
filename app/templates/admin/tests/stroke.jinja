@@ -2,13 +2,13 @@
 
 {% block fields %}
 <tr>
+    <td><label for="glucose">Average glucose level in blood:</label></td>
+    <td><input type="number" id="glucose" name="glucose" min="0" style="width: 68px;"></td> 
+</tr>
+<tr>
     <td colspan="2">
     <input type="checkbox" id="hypertension" name="hypertension">
     <label for="hypertension">Hypertension</label>
     </td>
-</tr>
-<tr>
-    <td><label for="glucose">Average glucose level in blood:</label></td>
-    <td><input type="number" id="glucose" name="glucose" min="0" style="width: 68px;"></td> 
 </tr>
 {% endblock fields %}

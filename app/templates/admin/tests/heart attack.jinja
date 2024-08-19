@@ -1,5 +1,27 @@
 {% extends "admin/fill.jinja" %}
 
 {% block fields %}
-heart attack
+<tr>
+    <td><label for="cp">Chest Pain Type:</label></td>
+    <td><select id="cp" name="cp" class="form-control" required>
+        <option value="1">Typical Angina</option>
+        <option value="2">Atypical Angina</option>
+        <option value="3">Non-Anginal Pain</option>
+        <option value="4">Asymptomatic</option>
+    </select></td>
+</tr>
+<tr>
+    <td><label for="trestbps">Blood Pressure (mm Hg):</label></td>
+    <td><input type="number" id="trestbps" name="trestbps" class="form-control" required style="width: 68px;"></td>
+</tr>
+<tr>
+    <td><label for="chol">Cholestoral (mg/dl):</label></td>
+    <td><input type="number" id="chol" name="chol" class="form-control" required style="width: 68px;"></td>
+</tr>
+<tr>
+    <td colspan="2">
+        <input type="checkbox" id="fbs" name="fbs">
+        <label for="fbs">Fasting Blood Sugar &gt; 120 mg/dl</label>
+    </td>
+</tr>
 {% endblock fields %}
