@@ -5,13 +5,14 @@ canvas {
     margin-bottom: 2rem;
 }
 
-h2 {
+h3 {
     margin-top: 2rem;
     margin-bottom: 2rem;
     border-radius: 0.7rem;
     padding: 0.5rem;
     background-color: #e7e7e7;
     color: #161616;
+    max-height: 21px;
 }
 
 #container {
