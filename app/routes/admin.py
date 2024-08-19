@@ -8,12 +8,14 @@ bp = Blueprint("admin", __name__)
 @bp.route("/fill", methods=["GET", "POST"])
 @admin_required
 def fill():
+    appointment_id = request.args.get("id")
     if request.method == "GET":
         type = db.execute(
             "SELECT tests.name FROM appointments JOIN tests ON appointments.test_id = tests.id WHERE appointments.id = ?;",
-            request.args.get("id"),
+            appointment_id,
         )[0]["name"]
         return render_template(f"admin/tests/{type}.jinja")
+    print(request.args.get("id"))
 
 
 @bp.route("/user")

@@ -25,3 +25,18 @@ h3 {
     border-radius: 0.375rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+#counters {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .counter {
+        display: none;
+    }
+    #counters {
+        display: block;
+    }
+}
