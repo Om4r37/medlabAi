@@ -1,16 +1,16 @@
 {% extends "layout.jinja" %}
 
 {% block title %}
-Results
+Appointments
 {% endblock %}
 
-{% set tab_number = 2 %}
+{% set tab_number = 1 %}
 
 {% block main %}
 <link rel="stylesheet" href="static/styles/table.css">
 <script src="static/scripts/TableFilter/tablefilter.js"></script>
 
-<h2>Results</h2>
+<h2>Appointments</h2>
 {% if rows %}
 <div class="table-container">
     <table class="sortable">
@@ -58,6 +58,8 @@ Results
 <script src="static/scripts/Sortable/sorttable.js"></script>
 
 {% else %}
-You have no results.
+You have no appointments.
 {% endif %}
+<br><a href="/appoint"><button class="blue btn" style="margin-top: 1rem;">New Appointment</button></a>
+{% if rows %}<br><a href="/clear"><button class="red btn">Delete All Appointments</button></a>{% endif %}
 {% endblock %}
