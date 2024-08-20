@@ -43,9 +43,23 @@ CREATE TABLE appointments (
     user_id INTEGER NOT NULL,
     location_id INTEGER NOT NULL,
     test_id INTEGER NOT NULL,
+    done boolean DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (location_id) REFERENCES locations (id),
     FOREIGN KEY (test_id) REFERENCES tests (id)
+);
+
+CREATE TABLE result_fields (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT NOT NULL,
+    value TEXT NOT NULL
+);
+
+CREATE TABLE results (
+    appointment_id INTEGER PRIMARY KEY NOT NULL,
+    result_fields_id INTEGER NOT NULL,
+    FOREIGN KEY (appointment_id) REFERENCES appointments (id),
+    FOREIGN KEY (result_fields_id) REFERENCES result_fields (id)
 );
 
 CREATE TABLE stats (

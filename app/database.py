@@ -32,6 +32,7 @@ def init():
                 db.execute("SELECT id FROM tests WHERE name = ?;", test)[0]["id"],
                 prerequisite,
             )
+    import faker
 
 
 try:
@@ -39,5 +40,3 @@ try:
 except:
     init()
     db = SQL("sqlite:///database.db")
-
-import faker

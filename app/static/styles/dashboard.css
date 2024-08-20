@@ -5,22 +5,38 @@ canvas {
     margin-bottom: 2rem;
 }
 
-h2 {
+h3 {
     margin-top: 2rem;
     margin-bottom: 2rem;
     border-radius: 0.7rem;
     padding: 0.5rem;
     background-color: #e7e7e7;
     color: #161616;
+    max-height: 21px;
 }
 
 #container {
     margin: 2rem auto;
-    padding: 2rem;
+    padding: 2rem 1rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     max-width: 800px;
     border-radius: 0.375rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#counters {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .counter {
+        display: none;
+    }
+    #counters {
+        display: block;
+    }
 }

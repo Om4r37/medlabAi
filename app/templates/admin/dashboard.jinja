@@ -11,9 +11,14 @@ Dashboard
 <script src="/static/scripts/chart.min.js"></script>
 <h1>Dashboard</h1>
 <div id="container">
-    <h2>Users Count: {{ stats[2].value }}</h2>
-    <h2>Current Appointments: {{ stats[0].value }}</h2>
-    <h2>Total Results: {{ stats[1].value }}</h2>
+    <h3 class="counter">Users Count: {{ stats[2].value }}</h3>
+    <h3 class="counter">Appointments: {{ stats[0].value }}</h3>
+    <h3 class="counter">Total Results: {{ stats[1].value }}</h3>
+    <div id="counters">
+        <h3>Users Count: {{ stats[2].value }}</h3>
+        <h3>Appointments: {{ stats[0].value }}</h3>
+        <h3>Total Results: {{ stats[1].value }}</h3>
+    </div>
     <canvas id="age"></canvas>
     <canvas id="gender"></canvas>
     <canvas id="married"></canvas>
@@ -25,7 +30,7 @@ Dashboard
 </div>
 
 <script>
-    var genderChart = new Chart(document.getElementById("age"), {
+    var ageChart = new Chart(document.getElementById("age"), {
         type: 'bar',
         data: {
             labels: ["0-15", "16-30", "31-45", "46-60", "61-75", "76+"],
@@ -38,7 +43,7 @@ Dashboard
                     {{ stats[22].value }},
                     {{ stats[23].value }}
                 ],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4bc0c0", "#c9cbcf"],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4bc0c0", "#ff9f40", "#c9cbcf"],
     }]
         },
     options: {
