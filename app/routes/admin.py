@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from app.database import db
 from app.utils import admin_required
 
@@ -15,7 +15,8 @@ def fill():
             appointment_id,
         )[0]["name"]
         return render_template(f"admin/tests/{type}.jinja")
-    print(request.args.get("id"))
+    print(request.form)
+    return redirect("/appointments")
 
 
 @bp.route("/user")

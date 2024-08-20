@@ -57,9 +57,9 @@ CREATE TABLE result_fields (
 
 CREATE TABLE results (
     appointment_id INTEGER PRIMARY KEY NOT NULL,
-    result_fields_id INTEGER NOT NULL,
+    result_field_id INTEGER NOT NULL,
     FOREIGN KEY (appointment_id) REFERENCES appointments (id),
-    FOREIGN KEY (result_fields_id) REFERENCES result_fields (id)
+    FOREIGN KEY (result_field_id) REFERENCES result_fields (id)
 );
 
 CREATE TABLE stats (

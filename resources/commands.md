@@ -1,3 +1,2 @@
-- initialize the project: `python app/database.py` or `python -m app.database` or `./app/database.py`
 - run project: `python -m flask --debug run` or `flask --debug run` or `python run.py` or `python -m run` or `./run.py`
 - remove deleted remote branches: `git fetch --prune`

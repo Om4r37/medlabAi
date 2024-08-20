@@ -8,6 +8,7 @@ from config import TEST_TYPES, LOCATIONS, STATS
 
 
 def init():
+    global db
     open("database.db", "w").close()
     db = SQL("sqlite:///database.db")
     with open("schema.sql", "r") as file:
@@ -39,4 +40,3 @@ try:
     db = SQL("sqlite:///database.db")
 except:
     init()
-    db = SQL("sqlite:///database.db")
