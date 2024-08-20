@@ -56,7 +56,8 @@ CREATE TABLE result_fields (
 );
 
 CREATE TABLE results (
-    appointment_id INTEGER PRIMARY KEY NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    appointment_id INTEGER NOT NULL,
     result_field_id INTEGER NOT NULL,
     FOREIGN KEY (appointment_id) REFERENCES appointments (id),
     FOREIGN KEY (result_field_id) REFERENCES result_fields (id)

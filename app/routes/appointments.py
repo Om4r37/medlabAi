@@ -10,37 +10,21 @@ bp = Blueprint("appointments", __name__)
 @bp.route("/appointments")
 @login_required
 def appointments():
-    if session["user_id"] == 1:
-        rows = db.execute('''
-    SELECT
-        appointments.id,
-        appointments.time,
-        appointments.user_id,
-        locations.name AS location,
-        tests.name AS type,
-        users.full_name AS name,
-        users.username AS username
-    FROM appointments
-    JOIN users ON appointments.user_id = users.id
-    JOIN locations ON appointments.location_id = locations.id
-    JOIN tests ON appointments.test_id = tests.id;'''
-        )
-        return render_template("admin/appointments.jinja", rows=rows)
-    else:
-        rows = db.execute('''
-SELECT
+    query = '''SELECT
     appointments.id,
     appointments.time,
+    appointments.user_id,
     locations.name AS location,
-    tests.name AS type
+    tests.name AS type,
+    users.full_name AS name,
+    users.username AS username
 FROM appointments
 JOIN users ON appointments.user_id = users.id
 JOIN locations ON appointments.location_id = locations.id
 JOIN tests ON appointments.test_id = tests.id
-WHERE users.id = ?;''',
-        session["user_id"],
-    )
-    return render_template("appointments/appointments.jinja", rows=rows)
+WHERE appointments.done != 1'''
+    rows = db.execute(query + ';') if session["user_id"] == 1 else db.execute(query + ' AND users.id = ?;', session["user_id"])
+    return render_template(('admin' if session["user_id"] == 1 else 'appointments') + "/appointments.jinja", rows=rows)
 
 
 @bp.route("/appoint", methods=["GET", "POST"])
