@@ -13,51 +13,49 @@
     </td>
 </tr>
 <tr>
-    <td><label for="trestbps">Blood Pressure (mm Hg):</label></td>
+    <td><label for="blood_pressure">Blood Pressure (mm Hg):</label></td> <!-- trestbps -->
     <td><input type="number" name="trestbps" required></td>
 </tr>
 <tr>
-    <td><label for="chol">Cholestoral (mg/dl):</label></td>
-    <td><input type="number" name="chol" required></td>
+    <td><label for="cholestoral">Cholestoral (mg/dl):</label></td>
+    <td><input type="number" name="cholestoral" required></td>
 </tr>
 <tr>
-    <td colspan="2">
-        <input type="checkbox" name="fbs">
-        <label for="fbs">Fasting Blood Sugar &gt; 120 mg/dl</label>
-    </td>
+    <td><label for="fasting_blood_sugar">Fasting Blood Sugar (mg/dl):</label></td>
+    <td><input type="number" name="fasting_blood_sugar" required></td>
 </tr>
 <tr>
-    <td><label for="restecg">Resting ECG:</label></td>
+    <td><label for="resting_ECG">Resting ECG:</label></td>
     <td>
-        <select name="restecg" required>
-            <option value="0">Normal</option>
-            <option value="1">ST-T Wave Abnormality</option>
-            <option value="2">Left Ventricular Hypertrophy</option>
+        <select name="resting_ECG" required>
+            <option value="normal">Normal</option>
+            <option value="ST-T_wave_abnormality">ST-T Wave Abnormality</option>
+            <option value="left_ventricular_hypertrophy">Left Ventricular Hypertrophy</option>
         </select>
     </td>
 </tr>
 <tr>
-    <td><label for="thal_rateach">Max Heart Rate:</label></td>
-    <td><input type="number" name="thal_rateach" required></td>
+    <td><label for="max_heart_rate">Max Heart Rate:</label></td> <!-- thalach -->
+    <td><input type="number" name="max_heart_rate" required></td>
 </tr>
 <tr>
-    <td><label for="oldpeak">ST Depression:</label></td>
-    <td><input type="number" name="oldpeak" required></td>
+    <td><label for="ST_depression">ST Depression:</label></td> <!-- oldpeak -->
+    <td><input type="number" name="ST_depression" required></td>
 </tr>
 <tr>
     <td><label for="slope">Slope of the Peak Exercise ST Segment:</label></td>
     <td>
         <select name="slope" required>
-            <option value="0">Upsloping</option>
-            <option value="1">Flat</option>
-            <option value="2">Downsloping</option>
+            <option value="upsloping">Upsloping</option>
+            <option value="flat">Flat</option>
+            <option value="downsloping">Downsloping</option>
         </select>
     </td>
 </tr>
 <tr>
-    <td><label for="ca">Number of Major Vessels:</label></td>
+    <td><label for="major_vessels">Number of Major Vessels:</label></td> <!-- ca -->
     <td>
-        <select name="ca" required>
+        <select name="major_vessels" required>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -69,9 +67,9 @@
     <td><label for="thal_rate">Thal Rate:</label></td>
     <td>
         <select name="thal_rate" required>
-            <option value="1">Normal</option>
-            <option value="2">Fixed Defect</option>
-            <option value="3">Reversible Defect</option>
+            <option value="normal">Normal</option>
+            <option value="fixed_defect">Fixed Defect</option>
+            <option value="reversible_defect">Reversible Defect</option>
         </select>
     </td>
 </tr>
