@@ -7,6 +7,14 @@ Test Result
 {% set tab_number = 2 %}
 
 {% block main %}
-<link rel="stylesheet" href="/static/styles/form.css">
+<link rel="stylesheet" href="/static/styles/result.css">
 <h2>Test Result</h2>
+<table>
+    {% for row in rows %}
+    <tr>
+        <td>{{ row.name | snake_case_to_title_case }}:</td>
+        <td>{{ row.value }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
