@@ -37,6 +37,16 @@ def result():
     query = """SELECT result_fields.name, result_fields.value
 FROM result_fields
 JOIN results ON result_fields.id = results.result_field_id
-WHERE results.appointment_id = ?;"""
-    rows = db.execute(query, request.args.get("id"))
+JOIN appointments ON results.appointment_id = appointments.id
+WHERE results.appointment_id = ?
+"""
+    rows = (
+        db.execute(query + ";", request.args.get("id"))
+        if session["user_id"] == 1
+        else db.execute(
+            query + " AND appointments.user_id = ?;",
+            request.args.get("id"),
+            session["user_id"],
+        )
+    )
     return render_template("result.jinja", rows=rows)

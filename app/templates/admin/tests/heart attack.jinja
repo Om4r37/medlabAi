@@ -2,34 +2,34 @@
 
 {% block fields %}
 <tr>
-    <td><label for="cp">Chest Pain Type:</label></td>
+    <td><label for="chest_pain">Chest Pain Type:</label></td>
     <td>
-        <select id="cp" name="cp" class="form-control" required>
-            <option value="1">Typical Angina</option>
-            <option value="2">Atypical Angina</option>
-            <option value="3">Non-Anginal Pain</option>
-            <option value="4">Asymptomatic</option>
+        <select name="chest_pain" required>
+            <option value="typical_angina">Typical Angina</option>
+            <option value="atypical_angina">Atypical Angina</option>
+            <option value="non-anginal_pain">Non-Anginal Pain</option>
+            <option value="asymptomatic">Asymptomatic</option>
         </select>
     </td>
 </tr>
 <tr>
     <td><label for="trestbps">Blood Pressure (mm Hg):</label></td>
-    <td><input type="number" id="trestbps" name="trestbps" class="form-control" required style="width: 68px;"></td>
+    <td><input type="number" name="trestbps" required></td>
 </tr>
 <tr>
     <td><label for="chol">Cholestoral (mg/dl):</label></td>
-    <td><input type="number" id="chol" name="chol" class="form-control" required style="width: 68px;"></td>
+    <td><input type="number" name="chol" required></td>
 </tr>
 <tr>
     <td colspan="2">
-        <input type="checkbox" id="fbs" name="fbs">
+        <input type="checkbox" name="fbs">
         <label for="fbs">Fasting Blood Sugar &gt; 120 mg/dl</label>
     </td>
 </tr>
 <tr>
     <td><label for="restecg">Resting ECG:</label></td>
     <td>
-        <select id="restecg" name="restecg" class="form-control" required>
+        <select name="restecg" required>
             <option value="0">Normal</option>
             <option value="1">ST-T Wave Abnormality</option>
             <option value="2">Left Ventricular Hypertrophy</option>
@@ -37,17 +37,17 @@
     </td>
 </tr>
 <tr>
-    <td><label for="thalach">Max Heart Rate:</label></td>
-    <td><input type="number" id="thalach" name="thalach" class="form-control" required style="width: 68px;"></td>
+    <td><label for="thal_rateach">Max Heart Rate:</label></td>
+    <td><input type="number" name="thal_rateach" required></td>
 </tr>
 <tr>
     <td><label for="oldpeak">ST Depression:</label></td>
-    <td><input type="number" id="oldpeak" name="oldpeak" class="form-control" required style="width: 68px;"></td>
+    <td><input type="number" name="oldpeak" required></td>
 </tr>
 <tr>
     <td><label for="slope">Slope of the Peak Exercise ST Segment:</label></td>
     <td>
-        <select id="slope" name="slope" class="form-control" required>
+        <select name="slope" required>
             <option value="0">Upsloping</option>
             <option value="1">Flat</option>
             <option value="2">Downsloping</option>
@@ -57,7 +57,7 @@
 <tr>
     <td><label for="ca">Number of Major Vessels:</label></td>
     <td>
-        <select id="ca" name="ca" class="form-control" required>
+        <select name="ca" required>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -66,9 +66,9 @@
     </td>
 </tr>
 <tr>
-    <td><label for="thal">Thal Rate:</label></td>
+    <td><label for="thal_rate">Thal Rate:</label></td>
     <td>
-        <select id="thal" name="thal" class="form-control" required>
+        <select name="thal_rate" required>
             <option value="1">Normal</option>
             <option value="2">Fixed Defect</option>
             <option value="3">Reversible Defect</option>

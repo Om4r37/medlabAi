@@ -32,3 +32,7 @@ def admin_required(f):
 
 def snake_case_to_title_case(snake_str):
     return " ".join([word.capitalize() for word in snake_str.split("_")])
+
+
+def on2positive(str):
+    return "Positive" if str == "On" else str

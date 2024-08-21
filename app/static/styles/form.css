@@ -42,3 +42,7 @@ table {
 td {
     text-align: initial;
 }
+
+input[type=number] {
+    width: 68px;
+}

@@ -13,8 +13,13 @@ Test Result
     {% for row in rows %}
     <tr>
         <td>{{ row.name | snake_case_to_title_case }}:</td>
-        <td>{{ row.value }}</td>
+        <td>{{ row.value | snake_case_to_title_case | on2positive }}</td>
     </tr>
     {% endfor %}
+    <td colspan="2">
+        <button onclick="window.history.back()" class="mid btn" style="color: black; min-width: 85px;">
+            Go Back
+        </button>
+    </td>
 </table>
 {% endblock %}
