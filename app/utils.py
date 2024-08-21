@@ -28,3 +28,7 @@ def admin_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+def snake_case_to_title_case(snake_str):
+    return " ".join([word.capitalize() for word in snake_str.split("_")])
