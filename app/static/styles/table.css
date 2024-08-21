@@ -70,3 +70,20 @@ img {
 thead>tr>th:not(:first-child) {
     transform: translateX(1rem);
 }
+
+.name {
+    transform: translateX(15px);
+}
+
+.name>span {
+    margin-left: 0.5rem;
+}
+
+.name>span>img {
+    content: url(/static/scripts/TableFilter/search.svg);
+}
+
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort)::after {
+    content: url(/static/scripts/Sortable/sort.svg);
+    width: 0.6rem;
+}

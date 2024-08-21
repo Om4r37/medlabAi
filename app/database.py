@@ -15,7 +15,7 @@ def init():
         for query in file.read().split(";")[:-1]:
             db.execute(query)
 
-    for stat in STATS:
+    for stat in STATS.keys():
         db.execute("INSERT INTO stats (name) VALUES (?);", stat)
 
     for location in LOCATIONS:

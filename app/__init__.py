@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_session import Session
 from app.routes import auth, index, appointments, results, admin
+from app.utils import snake_case_to_title_case, on2positive
 
 
 def create_app():
@@ -8,6 +9,10 @@ def create_app():
 
     # Load configuration
     app.config.from_object("config.Config")
+
+    # Register custom filters
+    app.jinja_env.filters["snake_case_to_title_case"] = snake_case_to_title_case
+    app.jinja_env.filters["on2positive"] = on2positive
 
     # Initialize session
     Session(app)

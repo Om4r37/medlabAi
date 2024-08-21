@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, request
 from app.database import db
 from app.utils import login_required
 
@@ -29,3 +29,24 @@ WHERE appointments.done = 1"""
     return render_template(
         ("admin/" if session["user_id"] == 1 else "") + "results.jinja", rows=rows
     )
+
+
+@bp.route("/result")
+@login_required
+def result():
+    query = """SELECT result_fields.name, result_fields.value
+FROM result_fields
+JOIN results ON result_fields.id = results.result_field_id
+JOIN appointments ON results.appointment_id = appointments.id
+WHERE results.appointment_id = ?
+"""
+    rows = (
+        db.execute(query + ";", request.args.get("id"))
+        if session["user_id"] == 1
+        else db.execute(
+            query + " AND appointments.user_id = ?;",
+            request.args.get("id"),
+            session["user_id"],
+        )
+    )
+    return render_template("result.jinja", rows=rows)

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, request, redirect, flash
 from app.database import db
-from app.utils import login_required
+from app.utils import login_required, snake_case_to_title_case
 from datetime import datetime, timedelta
 from config import OPENING_TIME, CLOSING_TIME, TEST_TYPES
 
@@ -43,7 +43,7 @@ def appoint():
         if db.execute("SELECT * FROM users WHERE id = ?;", session["user_id"])[0][prerequisite["name"]] == None:
             missing.append(prerequisite["name"])
     if missing:
-        return render_template("error.jinja", message=f"Missing prerequisites: {', '.join(missing)}", code=400)
+        return render_template("error.jinja", message=f"Missing prerequisites: {', '.join(map(snake_case_to_title_case, missing))}", code=400)
     db.execute(
         "INSERT INTO appointments (user_id, test_id, location_id, time) VALUES (?, ?, ?, ?);",
         session["user_id"],

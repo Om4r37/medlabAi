@@ -1,0 +1,25 @@
+{% extends "layout.jinja" %}
+
+{% block title %}
+Test Result
+{% endblock %}
+
+{% set tab_number = 2 %}
+
+{% block main %}
+<link rel="stylesheet" href="/static/styles/result.css">
+<h2>Test Result</h2>
+<table>
+    {% for row in rows %}
+    <tr>
+        <td>{{ row.name | snake_case_to_title_case }}:</td>
+        <td>{{ row.value | snake_case_to_title_case | on2positive }}</td>
+    </tr>
+    {% endfor %}
+    <td colspan="2">
+        <button onclick="window.history.back()" class="mid btn" style="color: black; min-width: 85px;">
+            Go Back
+        </button>
+    </td>
+</table>
+{% endblock %}
