@@ -49,21 +49,21 @@ CREATE TABLE appointments (
     FOREIGN KEY (test_id) REFERENCES tests (id)
 );
 
-CREATE TABLE result_fields (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    name TEXT NOT NULL,
-    value TEXT NOT NULL
-);
-
-CREATE TABLE results (
+CREATE TABLE results_fields (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     appointment_id INTEGER NOT NULL,
-    result_field_id INTEGER NOT NULL,
-    FOREIGN KEY (appointment_id) REFERENCES appointments (id),
-    FOREIGN KEY (result_field_id) REFERENCES result_fields (id)
+    name TEXT NOT NULL,
+    value TEXT NOT NULL,
+    FOREIGN KEY (appointment_id) REFERENCES appointments (id)
 );
 
 CREATE TABLE stats (
     name TEXT,
     value INTEGER Default 0
 );
+
+-- Indexes for frequently queried columns
+CREATE INDEX idx_appointments_user_id ON appointments (user_id);
+CREATE INDEX idx_appointments_location_id ON appointments (location_id);
+CREATE INDEX idx_appointments_test_id ON appointments (test_id);
+CREATE INDEX idx_results_fields_appointment_id ON results_fields (appointment_id);
