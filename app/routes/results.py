@@ -34,12 +34,10 @@ WHERE appointments.done = 1"""
 @bp.route("/result")
 @login_required
 def result():
-    query = """SELECT result_fields.name, result_fields.value
-FROM result_fields
-JOIN results ON result_fields.id = results.result_field_id
-JOIN appointments ON results.appointment_id = appointments.id
-WHERE results.appointment_id = ?
-"""
+    query = """SELECT results_fields.name, results_fields.value
+FROM results_fields
+JOIN appointments ON results_fields.appointment_id = appointments.id
+WHERE appointments.id = ?"""
     rows = (
         db.execute(query + ";", request.args.get("id"))
         if session["user_id"] == 1

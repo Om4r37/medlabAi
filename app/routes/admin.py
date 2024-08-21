@@ -17,15 +17,11 @@ def fill():
         )[0]["name"]
         return render_template(f"admin/tests/{type}.jinja", id=appointment_id)
     for i, v in request.form.items():
-        print(f"i: {i}, v: {v}")
-        field_id = db.execute(
-            "INSERT INTO result_fields (name, value) VALUES (?, ?);", i, v
-        )
-        print(f"a: {appointment_id}, f: {field_id}")
         db.execute(
-            "INSERT INTO results (appointment_id, result_field_id) VALUES (?, ?);",
+            "INSERT INTO results_fields (appointment_id, name, value) VALUES (?, ?, ?);",
             appointment_id,
-            field_id,
+            i,
+            v,
         )
     db.execute("UPDATE appointments SET done = true WHERE id = ?;", appointment_id)
     flash("Results recorded successfully!")
