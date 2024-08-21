@@ -20,7 +20,7 @@ Results
                 <th scope="col">Time</th>
                 <th scope="col" class="sorttable_nosort">Location</th>
                 <th scope="col" class="sorttable_nosort">Type</th>
-                <th scope="col" class="sorttable_nosort">Fill</th>
+                <th scope="col" class="sorttable_nosort">Open</th>
             </tr>
         </thead>
         <tbody>
@@ -34,7 +34,7 @@ Results
                 <td>{{ row.time }}</td>
                 <td>{{ row.location }}</td>
                 <td>{{ row.type }}</td>
-                <td><a href="/fill?id={{row.id}}">📃</a></td>
+                <td><a href="/open?id={{row.id}}">📄</a></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -29,3 +29,9 @@ WHERE appointments.done = 1"""
     return render_template(
         ("admin/" if session["user_id"] == 1 else "") + "results.jinja", rows=rows
     )
+
+
+@bp.route("/result")
+@login_required
+def result():
+    pass
