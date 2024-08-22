@@ -51,6 +51,7 @@ def appoint():
         request.form.get("location"),
         f"{request.form.get("date")} {request.form.get("time")}",
     )
+    db.execute("UPDATE stats SET value = value + 1 WHERE name = 'current_appointments';")
     flash("Appointment scheduled successfully!")
     return redirect("/appointments")
 
@@ -94,7 +95,9 @@ def periods():
 @bp.route("/clear")
 @login_required
 def clear():
-    db.execute("DELETE FROM appointments WHERE user_id = ?;", session["user_id"])
+    count = db.execute("SELECT COUNT(*) FROM appointments WHERE user_id = ? AND done = 0;", session["user_id"])[0]['COUNT(*)']
+    db.execute("UPDATE stats SET value = value - ? WHERE name = 'current_appointments';", count)
+    db.execute("DELETE FROM appointments WHERE user_id = ? AND done = 0;", session["user_id"])
     flash("Appointments cleared successfully!")
     return redirect("/appointments")
 
@@ -107,5 +110,6 @@ def remove():
         request.args.get("id"),
         session["user_id"] # important to prevent users from deleting other users' appointments
     )
+    db.execute("UPDATE stats SET value = value - 1 WHERE name = 'current_appointments';")
     flash("Appointment removed successfully!")
     return redirect("/appointments")
