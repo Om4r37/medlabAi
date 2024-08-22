@@ -19,17 +19,18 @@ Dashboard
         <h3>Appointments: {{ stats[0].value }}</h3>
         <h3>Total Results: {{ stats[1].value }}</h3>
     </div>
-    <canvas id="age"></canvas>
-    <canvas id="gender"></canvas>
-    <canvas id="married"></canvas>
-    <canvas id="residence"></canvas>
-    <canvas id="exng"></canvas>
-    <canvas id="heart_disease"></canvas>
-    <canvas id="smoke"></canvas>
-    <canvas id="work"></canvas>
+    {% if stats[18].value or stats[19].value or stats[20].value or stats[21].value or stats[22].value or stats[23].value %}<canvas id="age"></canvas>{% endif %}
+    {% if stats[3].value or stats[4].value %}<canvas id="gender"></canvas>{% endif %}
+    {% if stats[5].value %}<canvas id="married"></canvas>{% endif %}
+    {% if stats[11].value or stats[12].value %}<canvas id="residence"></canvas>{% endif %}
+    {% if stats[10].value %}<canvas id="exng"></canvas>{% endif %}
+    {% if stats[9].value %}<canvas id="heart_disease"></canvas>{% endif %}
+    {% if stats[6].value or stats[7].value or stats[8].value %}<canvas id="smoke"></canvas>{% endif %}
+    {% if stats[13].value or stats[14].value or stats[15].value or stats[16].value or stats[17].value %}<canvas id="work"></canvas>{% endif %}
 </div>
 
 <script>
+    {% if stats[18].value or stats[19].value or stats[20].value or stats[21].value or stats[22].value or stats[23].value %}
     var ageChart = new Chart(document.getElementById("age"), {
         type: 'bar',
         data: {
@@ -63,6 +64,8 @@ Dashboard
         }
     }
     });
+    {% endif %}
+    {% if stats[3].value or stats[4].value %}
     var genderChart = new Chart(document.getElementById("gender"), {
         type: 'doughnut',
         data: {
@@ -86,6 +89,8 @@ Dashboard
             }
         }
     });
+    {% endif %}
+    {% if stats[11].value or stats[12].value %}
     var residenceChart = new Chart(document.getElementById("residence"), {
         type: 'doughnut',
         data: {
@@ -109,6 +114,8 @@ Dashboard
             }
         }
     });
+    {% endif %}
+    {% if stats[5].value %}
     var marriedChart = new Chart(document.getElementById("married"), {
             type: 'doughnut',
             data: {
@@ -135,6 +142,8 @@ Dashboard
             }
         }
     });
+    {% endif %}
+    {% if stats[10].value %}
     var exngChart = new Chart(document.getElementById("exng"), {
         type: 'doughnut',
         data: {
@@ -161,6 +170,8 @@ Dashboard
             }
         }
     });
+    {% endif %}
+    {% if stats[9].value %}
     var heartDiseaseChart = new Chart(document.getElementById("heart_disease"), {
         type: 'doughnut',
         data: {
@@ -187,6 +198,8 @@ Dashboard
             }
         }
     });
+    {% endif %}
+    {% if stats[6].value or stats[7].value or stats[8].value %}
     var smokeChart = new Chart(document.getElementById("smoke"), {
         type: 'pie',
         data: {
@@ -216,6 +229,8 @@ Dashboard
         }
     }
     });
+    {% endif %}
+    {% if stats[13].value or stats[14].value or stats[15].value or stats[16].value or stats[17].value %}
     var workChart = new Chart(document.getElementById("work"), {
         type: 'pie',
         data: {
@@ -251,5 +266,6 @@ Dashboard
         }
     }
     });
+    {% endif %}
 </script>
 {% endblock %}

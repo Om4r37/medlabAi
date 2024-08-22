@@ -33,7 +33,7 @@ def init():
                 db.execute("SELECT id FROM tests WHERE name = ?;", test)[0]["id"],
                 prerequisite,
             )
-    import faker
+    # import faker  # add values to the stats table
 
 
 try:
