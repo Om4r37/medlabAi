@@ -46,11 +46,13 @@ th.sorttable_sorted_reverse::after {
 th.sorttable_sorted::after {
     background: url(/static/scripts/Sortable/ascending.svg);
     background-size: cover;
+    cursor: pointer;
 }
 
 th.sorttable_sorted_reverse::after {
     background: url(/static/scripts/Sortable/descending.svg);
     background-size: cover;
+    cursor: pointer;
 }
 
 #sorttable_sortfwdind,
@@ -81,9 +83,15 @@ thead>tr>th:not(:first-child) {
 
 .name>span>img {
     content: url(/static/scripts/TableFilter/search.svg);
+    cursor: pointer;
 }
 
 table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort)::after {
     content: url(/static/scripts/Sortable/sort.svg);
     width: 0.6rem;
+    cursor: pointer;
+}
+
+img {
+    cursor: pointer;
 }
