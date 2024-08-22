@@ -35,6 +35,7 @@ def register():
         generate_password_hash(password),
     )
     user = db.execute("SELECT * FROM users WHERE username = ?;", username)[0]
+    db.execute("UPDATE stats SET value = value + 1 WHERE name = 'users_count';")
     session["user_id"] = user["id"]
     session["user_name"] = user["username"]
     flash("Account Created Successfully!")

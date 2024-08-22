@@ -24,6 +24,10 @@ def fill():
             v,
         )
     db.execute("UPDATE appointments SET done = true WHERE id = ?;", appointment_id)
+    db.execute("UPDATE stats SET value = value + 1 WHERE name = 'total_results';")
+    db.execute(
+        "UPDATE stats SET value = value - 1 WHERE name = 'current_appointments';"
+    )
     flash("Results recorded successfully!")
     return redirect("/results")
 

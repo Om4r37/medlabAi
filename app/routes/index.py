@@ -66,21 +66,9 @@ def index():
 @bp.route("/delete")
 @login_required
 def delete():
-    for i in (
-        "full_name",
-        "email",
-        "gender",
-        "married",
-        "residence",
-        "birth_year",
-        "height",
-        "weight",
-        "pregnancies",
-        "exng",
-        "heart_disease",
-        "work",
-        "smoke",
-    ):
-        db.execute("UPDATE users SET ? = NULL WHERE id = ?;", i, session["user_id"])
+    db.execute(
+        "UPDATE users SET (full_name, email, gender, married, residence, birth_year, height, weight, pregnancies, exng, heart_disease, work, smoke) = (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL) WHERE id = ?;",
+        session["user_id"],
+    )
     flash("User Data Deleted!")
     return redirect("/")
