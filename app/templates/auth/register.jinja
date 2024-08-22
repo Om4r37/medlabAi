@@ -8,9 +8,9 @@ register
 <link href="/static/styles/auth.css" rel="stylesheet">
 <form action="/register" method="post">
     <p class="form-title">Create a new account</p>
-    <input autocomplete="off" autofocus name="username" placeholder="Enter username" type="text">
-    <input name="password" placeholder="Enter password" type="password">
-    <input name="confirmation" placeholder="Confirm password" type="password">
+    <input autocomplete="off" autofocus name="username" placeholder="Enter username" type="text" required>
+    <input name="password" placeholder="Enter password" type="password" required>
+    <input name="confirmation" placeholder="Confirm password" type="password" required>
     <button class="submit" type="submit">Register</button>
 
     <p class="signup-link">

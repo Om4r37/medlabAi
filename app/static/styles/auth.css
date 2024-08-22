@@ -71,3 +71,11 @@ input {
     text-decoration: underline;
     color: #406abd;
 }
+
+input:user-invalid {
+    border-color: #e53e3e;
+}
+
+input:user-valid {
+    border-color: #34d399;
+}

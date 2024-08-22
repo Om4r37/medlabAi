@@ -46,3 +46,11 @@ td {
 input[type=number] {
     width: 68px;
 }
+
+input:user-invalid {
+    border-color: #e53e3e;
+}
+
+input:user-valid {
+    border-color: #34d399;
+}
