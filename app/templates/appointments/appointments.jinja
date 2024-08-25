@@ -16,10 +16,10 @@ Appointments
     <table class="sortable">
         <thead>
             <tr>
-                <th scope="col">Time</th>
-                <th scope="col" class="sorttable_nosort">Location</th>
-                <th scope="col" class="sorttable_nosort">Type</th>
-                <th scope="col" class="sorttable_nosort">Cancel</th>
+                <th scope="col" class="sort">Time</th>
+                <th class="sorttable_nosort">Location</th>
+                <th class="sorttable_nosort">Type</th>
+                <th class="sorttable_nosort">Cancel</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +28,7 @@ Appointments
                 <td>{{ row.time }}</td>
                 <td>{{ row.location }}</td>
                 <td>{{ row.type }}</td>
-                <td><a href="/remove?id={{row.id}}">🗑</a></td>
+                <td><a href="/remove?id={{row.id}}" style="color: black;">🗑</a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -38,7 +38,6 @@ Appointments
     // TableFilter settings
     var tfConfig = {
         base_path: "static/scripts/TableFilter/",
-        col_widths: ["150px", "150px", "100px", "100px"],
         col_0: "none",
         col_1: "select",
         col_2: "select",

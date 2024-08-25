@@ -50,8 +50,8 @@
 6. registration, login, error, user information pages
 7. appointments system and pages
 8. admin dashboard
-9. classification system and page
-10. results system and pages
+9. results system and pages
+10. classification system and page
 11. testing
 12. documentation
 13. presentation
