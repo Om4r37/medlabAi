@@ -32,7 +32,7 @@ Users
             <tr>
                 <td>{{user.id}}</td>
                 <td>
-                    <a href="/user?id={{user.id}}" style="color: black;">
+                    <a href="/user?id={{user.id}}&tab=0" style="color: black;">
                         {% if user.full_name %}{{user.full_name}}{% else %}{{user.username}}{% endif %}
                     </a>
                 </td>

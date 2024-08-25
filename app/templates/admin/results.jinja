@@ -27,7 +27,7 @@ Results
             {% for row in rows %}
             <tr>
                 <td>
-                    <a href="/user?id={{row.user_id}}" style="color: black;">
+                    <a href="/user?id={{row.user_id}}&tab=2" style="color: black;">
                         {% if row.name %}{{row.name}}{% else %}{{row.username}}{%endif%}
                     </a>
                 </td>

@@ -10,7 +10,6 @@ bp = Blueprint("admin", __name__)
 @admin_required
 def fill():
     appointment_id = request.args.get("id")
-    print(f"appointment_id: {appointment_id}")
     if request.method == "GET":
         type = db.execute(
             "SELECT tests.name FROM appointments JOIN tests ON appointments.test_id = tests.id WHERE appointments.id = ?;",
@@ -36,8 +35,9 @@ def fill():
 @bp.route("/user")
 @admin_required
 def user():
+    tab = request.args.get("tab")
     user = db.execute("SELECT * FROM users WHERE id = ?;", request.args.get("id"))[0]
-    return render_template("admin/user.jinja", user=user)
+    return render_template("admin/user.jinja", user=user, tab=tab)
 
 
 @bp.route("/users")

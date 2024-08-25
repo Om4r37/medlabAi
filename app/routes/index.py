@@ -8,7 +8,6 @@ current_year = datetime.now().year
 
 
 def dashboard():
-    stats = db.execute("SELECT * FROM stats;")
     query = "SELECT COUNT(*) FROM users WHERE "
     params = {
         3: "gender = 1",
@@ -34,9 +33,9 @@ def dashboard():
         23: f"{current_year} - birth_year > 75",
     }
 
-    for k, v in params.items():
-        stats[k]["value"] = db.execute(query + v + ";")[0]["COUNT(*)"]
-
+    # for k, v in params.items():
+    #     stats[k]["value"] = db.execute(query + v + ";")[0]["COUNT(*)"]
+    stats = db.execute("SELECT * FROM stats;")
     return render_template("admin/dashboard.jinja", stats=stats)
 
 
