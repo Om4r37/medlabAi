@@ -54,3 +54,10 @@ input:user-invalid {
 input:user-valid {
     border-color: #34d399;
 }
+
+#mailto {
+    padding: 0.375rem 0.75rem;
+    color: black;
+    border: 1px solid #ced4da;
+    border-radius: 0.4rem;
+}
