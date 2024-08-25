@@ -37,8 +37,10 @@
     <div class="center">
         <div class="tab-bar">
             <a class="navbar-tab" href="/">
-                {% if session["user_id"] == 1 %}<span><img src="/static/pics/dashboard.svg" style="height: 1rem;"
-                        class="white"></span>Dashboard
+                {% if session["user_id"] == 1 %}
+                <span>
+                    <img src="/static/pics/dashboard.svg" style="height: 1rem;" class="white">
+                </span>Dashboard
                 {% else %}
                 <span>
                     <img src="/static/pics/information.svg" style="height: 1rem;" class="white">

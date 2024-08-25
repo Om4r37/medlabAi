@@ -28,7 +28,9 @@ Appointments
                 <td>{{ row.time }}</td>
                 <td>{{ row.location }}</td>
                 <td>{{ row.type }}</td>
-                <td><a href="/remove?id={{row.id}}" style="color: black;">🗑</a></td>
+                <td><a href="/remove?id={{row.id}}">
+                        <img src="/static/pics/cancel.svg" style="height: 1rem;">
+                    </a></td>
             </tr>
             {% endfor %}
         </tbody>

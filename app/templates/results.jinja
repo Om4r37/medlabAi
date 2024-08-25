@@ -28,7 +28,9 @@ Results
                 <td>{{ row.time }}</td>
                 <td>{{ row.location }}</td>
                 <td>{{ row.type }}</td>
-                <td><a href="/result?id={{row.id}}">📄</a></td>
+                <td><a href="/result?id={{row.id}}">
+                        <img src="/static/pics/open.svg" style="height: 1rem;">
+                    </a></td>
             </tr>
             {% endfor %}
         </tbody>
