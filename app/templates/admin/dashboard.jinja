@@ -12,12 +12,12 @@ Dashboard
 <h1>Dashboard</h1>
 <div id="container">
     <h3 class="counter"><a href="/users" style="color:black;">Users Count: {{ stats[2].value }}</a></h3>
-    <h3 class="counter">Appointments: {{ stats[0].value }}</h3>
-    <h3 class="counter">Total Results: {{ stats[1].value }}</h3>
+    <h3 class="counter"><a href="/appointments" style="color:black;">Appointments: {{ stats[0].value }}</a></h3>
+    <h3 class="counter"><a href="/results" style="color:black;">Total Results: {{ stats[1].value }}</a></h3>
     <div id="counters">
         <h3><a href="/users" style="color:black;">Users Count: {{ stats[2].value }}</a></h3>
-        <h3>Appointments: {{ stats[0].value }}</h3>
-        <h3>Total Results: {{ stats[1].value }}</h3>
+        <h3><a href="/appointments" style="color:black;">Appointments: {{ stats[0].value }}</a></h3>
+        <h3><a href="/results" style="color:black;">Total Results: {{ stats[1].value }}</a></h3>
     </div>
     {% if stats[18].value or stats[19].value or stats[20].value or stats[21].value or stats[22].value or stats[23].value %}<canvas id="age"></canvas>{% endif %}
     {% if stats[3].value or stats[4].value %}<canvas id="gender"></canvas>{% endif %}
