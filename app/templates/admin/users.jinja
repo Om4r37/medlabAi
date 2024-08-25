@@ -33,7 +33,7 @@ Users
                 <td>{{user.id}}</td>
                 <td>
                     <a href="/user?id={{user.id}}" style="color: black;">
-                        {% if user.name %}{{user.name}}{% else %}{{user.username}}{%endif%}
+                        {% if user.full_name %}{{user.full_name}}{% else %}{{user.username}}{% endif %}
                     </a>
                 </td>
                 <td>{% if user.birth_year %}

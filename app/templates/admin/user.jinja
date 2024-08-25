@@ -19,7 +19,9 @@ User Information
         {% endif %}
         {% if user["email"] !=None %}
         <label for="email">Email</label><br>
-        <input value="{{ user['email'] }}" type="email" id="email" name="email" disabled>
+        <a href="mailto:{{user['email']}}" id="mailto">
+            {{ user['email'] }}
+        </a>
         <br><br>
         {% endif %}
         {% if user["birth_year"] !=None %}
