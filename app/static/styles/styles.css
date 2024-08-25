@@ -216,3 +216,7 @@ a {
 .red:hover {
     background-color: #c82333;
 }
+
+.white {
+    filter: invert(1);
+}
