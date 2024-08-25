@@ -1,0 +1,92 @@
+{% extends "layout.jinja" %}
+
+{% block title %}
+Users
+{% endblock %}
+
+{% set tab_number = 0 %}
+
+{% block main %}
+<link rel="stylesheet" href="static/styles/table.css">
+<script src="static/scripts/TableFilter/tablefilter.js"></script>
+
+<h2>Users</h2>
+{% if users %}
+<div class="table-container" style="max-width: 1220px;">
+    <table class="sortable">
+        <thead>
+            <tr>
+                <th scope="col" class="sort">id</th>
+                <th class="sorttable_nosort name">Name</th>
+                <th scope="col" class="sort" style="transform: translateX(0);">age</th>
+                <th class="sorttable_nosort">gender</th>
+                <th scope="col" class="sort">Height</th>
+                <th scope="col" class="sort">Weight</th>
+                <th class="sorttable_nosort">Residence</th>
+                <th class="sorttable_nosort">Work Status</th>
+                <th class="sorttable_nosort">Smoke Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td>
+                    <a href="/user?id={{user.id}}" style="color: black;">
+                        {% if user.name %}{{user.name}}{% else %}{{user.username}}{%endif%}
+                    </a>
+                </td>
+                <td>{% if user.birth_year %}
+                    {{current_year - user.birth_year}}
+                    {% else %}NULL{% endif %}</td>
+                <td>{% if user.gender != none %}
+                    {% if user.gender == 0 %}fe{% endif %}male
+                    {% else %}NULL{% endif %}</td>
+                <td>{% if user.height %}{{user.height}}{% else %}NULL{% endif %}</td>
+                <td>{% if user.weight %}{{user.weight}}{% else %}NULL{% endif %}</td>
+                <td>{% if user.residence != none %}
+                    {% if user.residence %}Urban{% else %}Rural{% endif %}
+                    {% else %}NULL{% endif %}</td>
+                <td>{% if user.work != none %}
+                    {% if user.work == 1 %}Private{% elif user.work == 2 %}Self-Employed
+                    {% elif user.work == 3 %}Goverment{% elif user.work == 4 %}Children
+                    {% else %}Never Worked{% endif %}
+                    {% else %}NULL{% endif %}</td>
+                <td>{% if user.smoke == 1 %}Never Smoked{% elif user.smoke == 2 %}Former Smoker
+                    {% elif user.smoke == 3 %}Current Smoker
+                    {% else %}Unknown{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script data-config>
+    // TableFilter settings
+    var tfConfig = {
+        base_path: "static/scripts/TableFilter/",
+        col_0: "none",
+        col_2: "none",
+        col_3: "select",
+        col_4: "none",
+        col_5: "none",
+        col_6: "select",
+        col_7: "select",
+        col_8: "select",
+        popup_filters: true,
+        mark_active_columns: true,
+        highlight_keywords: true,
+        themes: [{
+            name: 'transparent'
+        }],
+    };
+
+    // Instantiate TableFilter
+    var tf = new TableFilter(document.querySelector("table"), tfConfig);
+    tf.init();
+</script>
+<script src="static/scripts/Sortable/sorttable.js"></script>
+
+{% else %}
+there's no Users.
+{% endif %}
+{% endblock %}

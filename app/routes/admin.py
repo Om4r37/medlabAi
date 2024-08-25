@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash
 from app.database import db
 from app.utils import admin_required
+import datetime
 
 bp = Blueprint("admin", __name__)
 
@@ -37,3 +38,12 @@ def fill():
 def user():
     user = db.execute("SELECT * FROM users WHERE id = ?;", request.args.get("id"))[0]
     return render_template("admin/user.jinja", user=user)
+
+
+@bp.route("/users")
+@admin_required
+def users():
+    users = db.execute("SELECT * FROM users;")[1:]
+    return render_template(
+        "admin/users.jinja", users=users, current_year=datetime.datetime.now().year
+    )

@@ -11,11 +11,11 @@ Dashboard
 <script src="/static/scripts/chart.min.js"></script>
 <h1>Dashboard</h1>
 <div id="container">
-    <h3 class="counter">Users Count: {{ stats[2].value }}</h3>
+    <h3 class="counter"><a href="/users" style="color:black;">Users Count: {{ stats[2].value }}</a></h3>
     <h3 class="counter">Appointments: {{ stats[0].value }}</h3>
     <h3 class="counter">Total Results: {{ stats[1].value }}</h3>
     <div id="counters">
-        <h3>Users Count: {{ stats[2].value }}</h3>
+        <h3><a href="/users" style="color:black;">Users Count: {{ stats[2].value }}</a></h3>
         <h3>Appointments: {{ stats[0].value }}</h3>
         <h3>Total Results: {{ stats[1].value }}</h3>
     </div>
