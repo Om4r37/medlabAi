@@ -85,6 +85,9 @@ def init():
         ]
     )
 
+    # train the model
+    rf_pipeline.fit(X_train_resh, y_train_resh)
+
     # cross validation score (current score is 94.2%)
     # rf_cv = cross_val_score(
     #     rf_pipeline, X_train_resh, y_train_resh, cv=10, scoring="f1"
@@ -95,9 +98,6 @@ def init():
     #         rf_pipeline, X_train_resh, y_train_resh, cv=10, scoring="f1"
     #     ).mean(),
     # )
-
-    # train the model
-    rf_pipeline.fit(X_train_resh, y_train_resh)
 
     # store the model
     open(model_path, "w").close()
