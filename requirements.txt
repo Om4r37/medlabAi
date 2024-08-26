@@ -1,2 +1,9 @@
 cs50 == 9.3.4
 Flask-Session == 0.8.0
+
+# ML Libraries
+numpy == 2.0.1
+pandas == 2.2.2
+scikit-learn == 1.5.1
+joblib == 1.4.2
+imblearn == 0.0
