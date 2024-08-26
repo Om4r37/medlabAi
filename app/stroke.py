@@ -105,9 +105,8 @@ def init():
 
 
 def predict(data):
-    print("data: ", data)
     model = joblib.load(model_path)
-    return model.predict(data)[0]
+    return model.predict([data])[0]
 
 
 try:

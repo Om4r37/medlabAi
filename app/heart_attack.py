@@ -14,7 +14,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, LabelEncoder
 
 warnings.filterwarnings("ignore")
-model_path = os.path.join(os.path.dirname(__file__), "models", "heart_failure.pkl")
+model_path = os.path.join(os.path.dirname(__file__), "models", "heart_attack.pkl")
+transformer_path = os.path.join(
+    os.path.dirname(__file__), "models", "ha_transformers.pkl"
+)
 
 
 def init():
@@ -23,7 +26,7 @@ def init():
     mms = MinMaxScaler()  # Normalization
     ss = StandardScaler()  # Standardization
 
-    file_path = os.path.join(os.path.dirname(__file__), "data", "heart_failure.csv")
+    file_path = os.path.join(os.path.dirname(__file__), "data", "heart_attack.csv")
     df = pd.read_csv(file_path)
     # csv header: Age,Sex,ChestPainType,RestingBP,Cholesterol,FastingBS,RestingECG,MaxHR,ExerciseAngina,Oldpeak,ST_Slope,HeartDisease
     # Fit transformers on all data
@@ -74,9 +77,6 @@ def init():
         "mms_peak": mms_peak,
     }
 
-    transformer_path = os.path.join(
-        os.path.dirname(__file__), "models", "hf_transformers.pkl"
-    )
     with open(transformer_path, "wb") as f:
         pickle.dump(transformers, f)
 
@@ -122,9 +122,6 @@ def predict(data):
     model = joblib.load(model_path)
 
     # Load transformers
-    transformer_path = os.path.join(
-        os.path.dirname(__file__), "models", "hf_transformers.pkl"
-    )
     with open(transformer_path, "rb") as f:
         transformers = pickle.load(f)
 

@@ -5,10 +5,10 @@
     <td><label for="chest_pain">Chest Pain Type:</label></td>
     <td>
         <select name="chest_pain" required>
-            <option value="typical_angina">Typical Angina</option>
-            <option value="atypical_angina">Atypical Angina</option>
-            <option value="non-anginal_pain">Non-Anginal Pain</option>
-            <option value="asymptomatic">Asymptomatic</option>
+            <option value="TA">Typical Angina</option>
+            <option value="ATA">Atypical Angina</option>
+            <option value="NAP">Non-Anginal Pain</option>
+            <option value="ASY">Asymptomatic</option>
         </select>
     </td>
 </tr>
@@ -17,8 +17,8 @@
     <td><input type="number" name="trestbps" required></td>
 </tr>
 <tr>
-    <td><label for="cholestoral">Cholestoral (mg/dl):</label></td>
-    <td><input type="number" name="cholestoral" required></td>
+    <td><label for="cholesterol">Cholesterol (mg/dl):</label></td>
+    <td><input type="number" name="cholesterol" required></td>
 </tr>
 <tr>
     <td><label for="fasting_blood_sugar">Fasting Blood Sugar (mg/dl):</label></td>
@@ -28,9 +28,9 @@
     <td><label for="resting_ECG">Resting ECG:</label></td>
     <td>
         <select name="resting_ECG" required>
-            <option value="normal">Normal</option>
-            <option value="ST-T_wave_abnormality">ST-T Wave Abnormality</option>
-            <option value="left_ventricular_hypertrophy">Left Ventricular Hypertrophy</option>
+            <option value="Normal">Normal</option>
+            <option value="ST">ST-T Wave Abnormality</option>
+            <option value="LVH">Left Ventricular Hypertrophy</option>
         </select>
     </td>
 </tr>
@@ -39,16 +39,16 @@
     <td><input type="number" name="max_heart_rate" required></td>
 </tr>
 <tr>
-    <td><label for="ST_depression">ST Depression:</label></td> <!-- oldpeak -->
-    <td><input type="number" name="ST_depression" required></td>
+    <td><label for="oldpeak">ST Depression:</label></td>
+    <td><input type="number" name="oldpeak" required></td>
 </tr>
 <tr>
     <td><label for="slope">Slope of the Peak Exercise ST Segment:</label></td>
     <td>
         <select name="slope" required>
-            <option value="upsloping">Upsloping</option>
-            <option value="flat">Flat</option>
-            <option value="downsloping">Downsloping</option>
+            <option value="Up">Upsloping</option>
+            <option value="Flat">Flat</option>
+            <option value="Down">Downsloping</option>
         </select>
     </td>
 </tr>
