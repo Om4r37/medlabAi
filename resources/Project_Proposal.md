@@ -8,11 +8,11 @@ A medical lab appointments system with the ability to see past test results and 
 
 ### Tools Used
 - Design Tool: Figma
-- Programming Languages: HTML, CSS, Javascript, Python
-- Web Frameworks: htmx, Flask
-- Machine Learning Libraries: scikit-learn, pandas
+- Programming Languages: HTML, CSS, Javascript, Python, Jinja, SQL
+- Web Frameworks: htmx, Flask, Bootstrap, chart.js, sorttable.js, TableFilter.
+- Machine Learning Libraries: scikit-learn, pandas, numpy, imblearn, joblib
 - Database: SQLite
-- Version Control: Git
+- Version Control: Git, GitHub
 
 ### Students Involved
 - Omar Muhye Aldeen Hasan Alnadi
