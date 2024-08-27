@@ -21,7 +21,7 @@ transformer_path = os.path.join(
 
 
 def init():
-    print("Initializing heart failure model")
+    print("Initializing heart attack model")
     le = LabelEncoder()
     mms = MinMaxScaler()  # Normalization
     ss = StandardScaler()  # Standardization
