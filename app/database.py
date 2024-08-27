@@ -8,6 +8,7 @@ from config import TEST_TYPES, LOCATIONS, STATS
 
 
 def init():
+    print("Initializing database")
     global db
     open("database.db", "w").close()
     db = SQL("sqlite:///database.db")

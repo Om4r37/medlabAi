@@ -19,15 +19,16 @@
             6. result classification
             7. user information
     B. Project tech stack:
-        Backend: flask
-        Frontend: HTML, CSS, JS, htmx, jinja
+        Backend: Python (flask)
+        Authentication: flask-session
+        Frontend: HTML, CSS, JS, htmx, jinja, chart.js, sortable.js, bootstrap
         Database: SQLite
-        ML libraries: scikit-learn, pandas
+        ML libraries: scikit-learn, pandas, numpy, joblib, imblearn
         Hosting: Azure
         Version Control: Git, GitHub
     C. Development environment:
         local: VS Code, Pycharm.
-        remote: idx
+        remote: idx, codespaces
     D. collect tests that will be implemented and their datasets:
         - pima-indians-diabetes: https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database
         - stroke: https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset

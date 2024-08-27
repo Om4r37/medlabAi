@@ -14,12 +14,12 @@ search
 
 
 # data:
-0- general: id, username, age, gender, hight, weight, married, work, Residence, smoking, Pregnancies, chestpain, heart_disease, exng
-1- pima indians: glucose, blood pressure, skin thickness, insulin, Diabetes pedigree
-2- stroke: hypertension (blood pressure), avg_glucose_level
-3- Heart Attack: trtbps (blood pressure), cholesterol, fasting blood sugar, ecg, maximum heart rate, oldpeak, st slope, caa, thal
-4- Heart Failure: anaemia, CPK, diabetes, blood ejection, blood_pressure, platelets, serum creatinine, serum sodium
-5- Hepatitis C: category, alp, alb, alt, ast, bil, che, chol, crea, ggt, prot
+0. general: id, username, age, gender, hight, weight, married, work, Residence, smoking, Pregnancies, chestpain, heart_disease, exng
+1. pima indians: glucose, blood pressure, skin thickness, insulin, Diabetes pedigree
+2. stroke: hypertension (blood pressure), avg_glucose_level
+3. Heart Attack: trtbps (blood pressure), cholesterol, fasting blood sugar, ecg, maximum heart rate, oldpeak, st slope, caa, thal
+4. Heart Failure: anaemia, CPK, diabetes, blood ejection, blood_pressure, platelets, serum creatinine, serum sodium
+5. Hepatitis C: category, alp, alb, alt, ast, bil, che, chol, crea, ggt, prot
 
 
 # training data
