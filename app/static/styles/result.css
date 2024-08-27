@@ -16,3 +16,19 @@ table {
     margin-left: 50%;
     transform: translateX(-50%);
 }
+
+.classification {
+    border-radius: 0.5rem;
+    border: 1px solid;
+    padding: 0.5rem 1rem;
+}
+
+.normal {
+    border-color: rgb(0, 255, 0);
+    background-color: rgb(210, 255, 210);
+}
+
+.abnormal {
+    border-color: rgb(255, 0, 0);
+    background-color: rgb(255, 210, 210);
+}

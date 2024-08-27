@@ -26,9 +26,7 @@ WHERE appointments.done = 1"""
         if session["user_id"] == 1
         else db.execute(query + " AND users.id = ?;", session["user_id"])
     )
-    return render_template(
-        ("admin/" if session["user_id"] == 1 else "") + "results.jinja", rows=rows
-    )
+    return render_template(("admin/" if session["user_id"] == 1 else "") + "results.jinja", rows=rows)
 
 
 @bp.route("/result")
@@ -47,4 +45,7 @@ WHERE appointments.id = ?"""
             session["user_id"],
         )
     )
-    return render_template("result.jinja", rows=rows)
+    classification = render_template(f"results/{"" if rows[-1]["value"] == '0' else "ab"}normal.jinja") 
+    return render_template(
+        "results/result.jinja", rows=rows[:-1], classification=classification
+    )
