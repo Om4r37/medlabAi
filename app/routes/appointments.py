@@ -73,7 +73,7 @@ def periods():
 
     # Get existing appointments for the day
     existing_appointments = db.execute(
-        "SELECT time FROM appointments WHERE date(time) = ? AND test_id = ? AND location_id = ?;",
+        "SELECT time FROM appointments WHERE date(time) = ? AND test_id = ? AND location_id = ? AND done = 0;",
         date,
         test_id,
         location_id
