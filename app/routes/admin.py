@@ -103,7 +103,7 @@ def fill():
     )
     classify(appointment_id)
     flash("Results recorded successfully!")
-    return redirect("/result?id=" + appointment_id)
+    return redirect("/appointments")
 
 
 @bp.route("/user")

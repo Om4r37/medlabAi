@@ -26,7 +26,7 @@ WHERE appointments.done = 1"""
         if session["user_id"] == 1
         else db.execute(query + " AND users.id = ?;", session["user_id"])
     )
-    return render_template(("admin/" if session["user_id"] == 1 else "") + "results.jinja", rows=rows)
+    return render_template(("admin" if session["user_id"] == 1 else "results") + "/results.jinja", rows=rows)
 
 
 @bp.route("/result")
