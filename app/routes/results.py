@@ -32,20 +32,21 @@ WHERE appointments.done = 1"""
 @bp.route("/result")
 @login_required
 def result():
+    id = request.args.get("id")
     query = """SELECT results_fields.name, results_fields.value
 FROM results_fields
 JOIN appointments ON results_fields.appointment_id = appointments.id
 WHERE appointments.id = ?"""
     rows = (
-        db.execute(query + ";", request.args.get("id"))
+        db.execute(query + ";", id)
         if session["user_id"] == 1
         else db.execute(
             query + " AND appointments.user_id = ?;",
-            request.args.get("id"),
+            id,
             session["user_id"],
         )
     )
     classification = render_template(f"results/{"" if rows[-1]["value"] == '0' else "ab"}normal.jinja") 
     return render_template(
-        "results/result.jinja", rows=rows[:-1], classification=classification
+        "results/result.jinja", rows=rows[:-1], classification=classification, id=id
     )

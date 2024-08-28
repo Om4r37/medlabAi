@@ -103,7 +103,7 @@ def fill():
     )
     classify(appointment_id)
     flash("Results recorded successfully!")
-    return redirect("/appointments")
+    return redirect("/result?id=" + appointment_id)
 
 
 @bp.route("/user")
@@ -121,3 +121,14 @@ def users():
     return render_template(
         "admin/users.jinja", users=users, current_year=datetime.datetime.now().year
     )
+
+
+@bp.route("/invert")
+@admin_required
+def invert():
+    id = request.args.get("id")
+    db.execute(
+        "UPDATE results_fields SET value = 1 - value WHERE name = 'classification' AND appointment_id = ?;",
+        id,
+    )
+    return redirect(f"/result?id={id}")

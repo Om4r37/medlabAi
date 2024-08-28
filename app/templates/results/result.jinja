@@ -17,22 +17,24 @@ Test Result
     </tr>
     {% endfor %}
     {{ classification }}
-    <td colspan="2">
-        <button onclick="window.history.back()" class="mid btn" style="color: black; min-width: 85px;">
+    {% if session["user_id"] == 1 %}
+    <td>
+        <button onclick="window.location.href='/results'" class="mid btn" style="color: black; min-width: 85px;">
             Go Back
         </button>
     </td>
+    <td>
+        <button onclick="window.location.href='/invert?id={{id}}'" class="mid btn"
+            style="color: black; min-width: 85px;">
+            Invert
+        </button>
+    </td>
+    {% else %}
+    <td colspan="2">
+        <button onclick="window.location.href='/results'" class="mid btn" style="color: black; min-width: 85px;">
+            Go Back
+        </button>
+    </td>
+    {% endif %}
 </table>
-<script>
-    // get the text content of the second to last td element
-    var td = document.getElementsByTagName('td');
-    var last_td = td[td.length - 2];
-    var classification = parseInt(last_td.textContent);
-
-    // replace the text content of the second to last tr element
-    var tr = document.getElementsByTagName('tr');
-    var last_tr = tr[tr.length - 2];
-    // last_tr.lastElementChild.textContent = classification === 1 ? 'Positive' : 'Negative';
-
-</script>
 {% endblock %}
