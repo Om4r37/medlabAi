@@ -27,12 +27,12 @@ WHERE appointments.done != 1'''
     return render_template(('admin' if session["user_id"] == 1 else 'appointments') + "/appointments.jinja", rows=rows)
 
 
-@bp.route("/appoint", methods=["GET", "POST"])
+@bp.route("/schedule", methods=["GET", "POST"])
 @login_required
-def appoint():
+def schedule():
     if request.method == "GET":
         return render_template(
-            "appointments/appoint.jinja",
+            "appointments/schedule.jinja",
             current_date=str(datetime.now())[:10],
             tests=db.execute("SELECT * FROM tests"),
             locations=db.execute("SELECT * FROM locations"),

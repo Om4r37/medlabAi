@@ -9,7 +9,7 @@ CREATE TABLE users (
     height INTEGER,
     weight INTEGER,
     married boolean,
-    work INTEGER, -- (never worked, private, self-employed, gov, children)
+    work INTEGER, -- (0: never worked, 1: private, 2: self-employed, 3: gov, 4: children)
     residence boolean, -- 0: rural, 1: urban
     smoke INTEGER, -- 0: unknown, 1: never, 2: former, 3: current
     pregnancies INTEGER,
