@@ -1,6 +1,8 @@
 # medlabAi
 a simple medical lab sysem for appointments and storing results that automatically classifies the results.
 
+## [Setup Project](/commands.md)
+
 # Software Used
 - [Python](https://www.python.org/)
 - [SQLite](https://www.sqlite.org/)
