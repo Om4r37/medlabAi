@@ -1,2 +1,3 @@
 - install requirements: `pip install -r requirements.txt`
+- optionally run  `python faker.py` or `./faker.py`
 - run project: `python -m flask --debug run` or `flask --debug run` or `python run.py` or `python -m run` or `./run.py`
