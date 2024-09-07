@@ -4,21 +4,8 @@ a simple medical lab sysem for appointments and storing results that automatical
 ## [Setup Project](/commands.md)
 
 # Software Used
-- [Python](https://www.python.org/)
-- [SQLite](https://www.sqlite.org/)
-- [HTML](https://html.spec.whatwg.org/)
-- [CSS](https://www.w3.org/TR/CSS)
-- [JavaScript](https://ecma-international.org/publications-and-standards/standards/ecma-262)
-- [htmx](https://htmx.org/)
-- [Sorttable.js](https://www.kryogenix.org/code/browser/sorttable)
-- [TableFilter.js](https://www.tablefilter.com/)
-- [Chart.js](https://www.chartjs.org/)
-- [Flask](https://flask.palletsprojects.com/)
-- [Jinja](https://jinja.palletsprojects.com/)
-- [Flask-Session](https://flask-session.readthedocs.io/)
-- [cs50.SQL](https://cs50.readthedocs.io/libraries/cs50/python/#cs50.SQL)
-- [NumPy](https://numpy.org/)
-- [pandas](https://pandas.pydata.org/)
-- [scikit-learn](https://scikit-learn.org/)
-- [imbalanced-learn](https://imbalanced-learn.org/)
-- [Joblib](https://joblib.readthedocs.io/)
+|Frontend|Backend|ML|
+|:-|:-|:-|
+[HTML](https://html.spec.whatwg.org/)<br>[CSS](https://www.w3.org/TR/CSS)<br>[JavaScript](https://ecma-international.org/publications-and-standards/standards/ecma-262)<br>[htmx](https://htmx.org/)<br>[Sorttable.js](https://www.kryogenix.org/code/browser/sorttable)<br>[TableFilter.js](https://www.tablefilter.com/)<br>[Chart.js](https://www.chartjs.org/)|[Python](https://www.python.org/)<br>[SQLite](https://www.sqlite.org/)<br>[Flask](https://flask.palletsprojects.com/)<br>[Jinja](https://jinja.palletsprojects.com/)<br>[Flask-Session](https://flask-session.readthedocs.io/)<br>[cs50.SQL](https://cs50.readthedocs.io/libraries/cs50/python/#cs50.SQL)|[NumPy](https://numpy.org/)<br>[pandas](https://pandas.pydata.org/)<br>[scikit-learn](https://scikit-learn.org/)<br>[imbalanced-learn](https://imbalanced-learn.org/)<br>[Joblib](https://joblib.readthedocs.io/)|
+  
+
