@@ -1,7 +1,7 @@
 # medlabAi
 a simple medical lab sysem for appointments and storing results that automatically classifies the results.
 
-## [Setup Project](/commands.md)
+## [Setup Project](/setup.md)
 
 # Software Used
 |Frontend|Backend|ML|
