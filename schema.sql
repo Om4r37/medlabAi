@@ -67,3 +67,4 @@ CREATE INDEX idx_appointments_user_id ON appointments (user_id);
 CREATE INDEX idx_appointments_location_id ON appointments (location_id);
 CREATE INDEX idx_appointments_test_id ON appointments (test_id);
 CREATE INDEX idx_results_fields_appointment_id ON results_fields (appointment_id);
+

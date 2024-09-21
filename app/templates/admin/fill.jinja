@@ -9,6 +9,7 @@ Test Results Form
 {% block main %}
 <link rel="stylesheet" href="/static/styles/form.css">
 <h2>Fill Test Results</h2>
+
 <form action="/fill?id={{id}}" method="post">
     <table>
         {% block fields %}{% endblock fields %}
@@ -19,4 +20,5 @@ Test Results Form
     </button>
     <button class="blue btn" type="submit">Save</button>
 </form>
+
 {% endblock %}

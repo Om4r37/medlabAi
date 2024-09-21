@@ -12,11 +12,14 @@ def classify(appointment_id):
     user_id = db.execute(
         "SELECT user_id FROM appointments WHERE id = ?;", appointment_id
     )[0]["user_id"]
+
     test_type = db.execute(
         "SELECT tests.name FROM appointments JOIN tests ON appointments.test_id = tests.id WHERE appointments.id = ?;",
         appointment_id,
     )[0]["name"]
+
     user_info = db.execute("SELECT * FROM users WHERE id = ?;", user_id)[0]
+
     if test_type == "stroke":
         data = [
             user_info["gender"],
@@ -28,6 +31,7 @@ def classify(appointment_id):
             user_info["weight"] / ((user_info["height"] / 100) ** 2),
         ]
         prediction = stroke.predict(data)
+
     elif test_type == "heart attack":
         data = [
             current_year - user_info["birth_year"],
@@ -80,16 +84,23 @@ def classify(appointment_id):
 
 
 @bp.route("/fill", methods=["GET", "POST"])
-@admin_required
 def fill():
     appointment_id = request.args.get("id")
     if request.method == "GET":
-        type = db.execute(
+        result = db.execute(
             "SELECT tests.name FROM appointments JOIN tests ON appointments.test_id = tests.id WHERE appointments.id = ?;",
-            appointment_id,
-        )[0]["name"]
-        return render_template(f"admin/tests/{type}.jinja", id=appointment_id)
+            (appointment_id,),  # Pass as a tuple
+        )
+        
+        if result:
+            type = result[0]["name"]
+            return render_template(f"admin/tests/{type}.jinja", id=appointment_id)
+        else:
+            flash("No test found for the given appointment ID.")
+            return redirect("/")  
+
     for i, v in request.form.items():
+        # the data need to be validated before insert into data base
         db.execute(
             "INSERT INTO results_fields (appointment_id, name, value) VALUES (?, ?, ?);",
             appointment_id,
@@ -104,6 +115,7 @@ def fill():
     classify(appointment_id)
     flash("Results recorded successfully!")
     return redirect("/result?id=" + appointment_id)
+
 
 
 @bp.route("/user")

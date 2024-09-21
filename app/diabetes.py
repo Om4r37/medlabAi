@@ -84,7 +84,10 @@ def predict(data):
     return model.predict([data])[0]
 
 
+if not os.path.exists(model_path):
+    init()
+
 try:
     joblib.load(model_path)
-except FileNotFoundError:
-    init()
+except Exception as e:
+    print("The error is: ",e)
