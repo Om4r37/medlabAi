@@ -4,7 +4,7 @@
 # Setup
 ## Unix
 ```
-wget https://raw.githubusercontent.com/Om4r37/medlabAi/main/setup.sh && sh setup.sh
+sh <(curl -s "https://raw.githubusercontent.com/Om4r37/medlabAi/main/setup.sh")
 ```
 ## Windows
 ```
