@@ -49,7 +49,7 @@ def schedule():
         session["user_id"],
         request.form.get("test"),
         request.form.get("location"),
-        f"{request.form.get("date")} {request.form.get("time")}",
+        f"{request.form.get('date')} {request.form.get('time')}",
     )
     db.execute("UPDATE stats SET value = value + 1 WHERE name = 'current_appointments';")
     flash("Appointment scheduled successfully!")
