@@ -46,7 +46,7 @@ WHERE appointments.id = ?"""
             session["user_id"],
         )
     )
-    classification = render_template(f"results/{"" if rows[-1]["value"] == '0' else "ab"}normal.jinja") 
+    classification = render_template(f"results/{'' if rows[-1]['value'] == '0' else 'ab'}normal.jinja") 
     return render_template(
         "results/result.jinja", rows=rows[:-1], classification=classification, id=id
     )
