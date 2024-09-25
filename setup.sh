@@ -6,7 +6,7 @@ unzip data.zip
 rm -f data.zip
 cd ..
 wget https://github.com/Om4r37/medlabAi/releases/download/v0.9/users.sql
-python3 -m venv .venv
+python3.10 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python3 run.py
+python3.10 run.py
