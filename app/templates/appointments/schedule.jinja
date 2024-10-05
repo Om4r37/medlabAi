@@ -9,6 +9,7 @@ Appointments
 {% block main %}
 <link rel="stylesheet" href="/static/styles/form.css">
 <h2>Schedule an Appointment</h2>
+<!-- should use anti-CSRF tokens  -->
 <form action="/schedule" method="post">
     <div>
         <label for="test">Type:</label><br>
@@ -23,10 +24,13 @@ Appointments
             <option value="{{ location.id }}">{{ location.name }}</option>
             {% endfor %}
         </select><br>
-        <label for="date">Day:</label><br>
+        <label for="date">Day:</label>
+        <br>
         <input type="date" id="date" name="date" min="{{ current_date }}" required hx-get="/periods" hx-target="#time"
             hx-trigger="change, change from:[name='test'], change from:[name='location']"
-            hx-include="[name='test'], [name='date'], [name='location']"><br>
+            hx-include="[name='test'], [name='date'], [name='location']" > 
+        <br>
+            
         <label for="time">Time:</label><br>
         <select id="time" name="time" required>
             <option disabled>pick a day first</option>

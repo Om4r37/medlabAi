@@ -14,12 +14,13 @@
 <body>
     <div class="navbar">
         <div class="navbar-logo"><img src="/static/pics/logo/logo.svg" style="height: 1.7rem; translate: -15% 15%;">
-            MedLab
+           <a href="/">MedLab</a>
+            
         </div>
-        {% if session["user_id"] %}
+        {% if user %}
         <ul class="navbar-tabs">
             <a class="navbar-tab" href="/">
-                {% if session["user_id"] == 1 %}
+                {% if user.id == 1 %}
                 <img src="/static/pics/dashboard.svg" style="height: 1rem;" class="white">&nbsp;Dashboard
                 {% else %}
                 <img src="/static/pics/information.svg" style="height: 1rem;" class="white">&nbsp;Information
@@ -33,11 +34,12 @@
         <a class="logout" href="/logout">Log Out</a>
         {% endif %}
     </div>
-    {% if session["user_id"] %}
+
+    {% if user %}
     <div class="center">
         <div class="tab-bar">
             <a class="navbar-tab" href="/">
-                {% if session["user_id"] == 1 %}
+                {% if user.id == 1 %}
                 <span>
                     <img src="/static/pics/dashboard.svg" style="height: 1rem;" class="white">
                 </span>Dashboard

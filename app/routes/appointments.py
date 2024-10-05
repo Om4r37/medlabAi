@@ -1,30 +1,49 @@
-from flask import Blueprint, render_template, session, request, redirect, flash
-from app.database import db
-from app.utils import login_required, snake_case_to_title_case
+from flask import Blueprint, render_template,request, redirect, flash
+from app import db
+from app.models import Appointment, Location, Stats, Test
+from app.utils import snake_case_to_title_case
 from datetime import datetime, timedelta
-from config import OPENING_TIME, CLOSING_TIME, TEST_TYPES
+from config import OPENING_TIME, CLOSING_TIME 
+from flask_login import current_user, login_required
+from sqlalchemy import func, update
 
 bp = Blueprint("appointments", __name__)
 
 
+# Eager load :load everything in one query if we need optimize the performance
+'''
 @bp.route("/appointments")
 @login_required
 def appointments():
-    query = '''SELECT
-    appointments.id,
-    appointments.time,
-    appointments.user_id,
-    locations.name AS location,
-    tests.name AS type,
-    users.full_name AS name,
-    users.username AS username
-FROM appointments
-JOIN users ON appointments.user_id = users.id
-JOIN locations ON appointments.location_id = locations.id
-JOIN tests ON appointments.test_id = tests.id
-WHERE appointments.done != 1'''
-    rows = db.execute(query + ';') if session["user_id"] == 1 else db.execute(query + ' AND users.id = ?;', session["user_id"])
-    return render_template(('admin' if session["user_id"] == 1 else 'appointments') + "/appointments.jinja", rows=rows)
+    if current_user.is_admin:
+        appointments = Appointment.query.options(
+        joinedload(Appointment.user),
+        joinedload(Appointment.location),
+        joinedload(Appointment.test)
+        ).all()
+    else:
+        appointments = Appointment.query.options(
+        joinedload(Appointment.user),
+        joinedload(Appointment.location),
+        joinedload(Appointment.test)
+        ).filter_by(user_id=current_user.id).all()
+
+    return render_template(('admin' if current_user.is_admin else 'appointments') + "/appointments.jinja", appointments = appointments)
+
+'''
+
+# Lazy load :when you access for ex appointment.user additional query is made to fetch the user
+@bp.route("/appointments", methods=["GET"])
+@login_required
+def appointments():
+    if current_user.id == 1:
+        appointments = Appointment.query.filter_by(is_done = False).all()
+    else:
+        appointments = Appointment.query.filter_by(is_done = False, user_id = current_user.id)   
+    # there is no need for two templates :)    
+    return render_template(('admin' if current_user.id == 1 else 'appointments') + "/appointments.jinja",
+                            appointments = appointments)
+
 
 
 @bp.route("/schedule", methods=["GET", "POST"])
@@ -33,83 +52,145 @@ def schedule():
     if request.method == "GET":
         return render_template(
             "appointments/schedule.jinja",
-            current_date=str(datetime.now())[:10],
-            tests=db.execute("SELECT * FROM tests"),
-            locations=db.execute("SELECT * FROM locations"),
-        )
+             current_date = str(datetime.now())[:10],
+            tests = Test.query.all(),
+            locations = Location.query.all(),
+            )
+        
+    # validate form inputs
+    test_id = request.form.get("test")
+    location_id = request.form.get("location")
+    date = request.form.get("date")
+    time = request.form.get("time")
+        
+    if not all([test_id, location_id, date, time]):
+        return render_template("error.jinja", message="All fields are required", code= 400)
+        
+    test = Test.query.get( test_id )
+    if not test:
+        return render_template("error.jinja", message="Test not found.", code= 404)
+        
+    pre_requests = test.pre_requests
     missing = []
-    prerequisites = db.execute("SELECT name FROM prerequisites WHERE test_id = ?;", request.form.get("test"))
-    for prerequisite in prerequisites:
-        if db.execute("SELECT * FROM users WHERE id = ?;", session["user_id"])[0][prerequisite["name"]] == None:
-            missing.append(prerequisite["name"])
+
+    for pre_request in pre_requests:
+        # current_user.pre_request.name is None
+        if getattr(current_user, pre_request.name) is None:
+            missing.append(pre_request.name)
+
     if missing:
-        return render_template("error.jinja", message=f"Missing prerequisites: {', '.join(map(snake_case_to_title_case, missing))}", code=400)
-    db.execute(
-        "INSERT INTO appointments (user_id, test_id, location_id, time) VALUES (?, ?, ?, ?);",
-        session["user_id"],
-        request.form.get("test"),
-        request.form.get("location"),
-        f"{request.form.get("date")} {request.form.get("time")}",
-    )
-    db.execute("UPDATE stats SET value = value + 1 WHERE name = 'current_appointments';")
+        return render_template("error.jinja",
+                message=f"Missing prerequisites: {', '.join(map(snake_case_to_title_case,
+                missing) )}", code=400)
+    
+    ex_appointment = Appointment.query.filter_by(time = 
+                                                 f"{request.form.get('date')} {request.form.get('time')}").first()
+    
+    if ex_appointment:
+        return render_template("error.jinja", message="Appointments already exist in this time", code= 400)
+
+    appointment = Appointment(user_id = current_user.id,
+                            test_id = test_id,
+                            location_id = location_id,
+                            time = f"{request.form.get("date")} {request.form.get("time")}"
+                             )    
+        
+    db.session.add(appointment)
+
+    stmt = (
+        update(Stats)
+        .where(Stats.name == 'current_appointments')
+        .values(value = Stats.value + 1)
+        )
+    
+    db.session.execute(stmt)
+    db.session.commit()
     flash("Appointment scheduled successfully!")
     return redirect("/appointments")
 
 
-@bp.route("/periods")
+
+@bp.route("/periods", methods=["GET"])
 @login_required
 def periods():
-    date = request.args.get("date")
-    if date == '':
-        return "<option disabled>pick a day first</option>"
-    location_id = request.args.get("location")
-    test_id = request.args.get("test")
-    test_name = db.execute("SELECT name FROM tests WHERE id = ?", test_id)[0]['name']
-    test_duration = TEST_TYPES[test_name]['duration']
+    try:
+        date = request.args.get("date")
+        if date == '':
+            return "<option disabled>pick a day first</option>"
+        
+        location_id = request.args.get("location")
+        test_id = request.args.get("test")
 
-    # Convert opening and closing times to datetime objects
-    opening_time = datetime.strptime(f"{date} {OPENING_TIME}", "%Y-%m-%d %H:%M")
-    closing_time = datetime.strptime(f"{date} {CLOSING_TIME}", "%Y-%m-%d %H:%M")
+        if not all([test_id, location_id]):
+            return render_template("error.jinja", message="All fields are required", code=400)
 
-    # Get existing appointments for the day
-    existing_appointments = db.execute(
-        "SELECT time FROM appointments WHERE date(time) = ? AND test_id = ? AND location_id = ? AND done = 0;",
-        date,
-        test_id,
-        location_id
+        test = Test.query.get(test_id)
+
+        #test_name = test.name
+        test_duration = test.duration
+
+        # Convert opening and closing times to datetime objects
+        opening_time = datetime.strptime(f"{date} {OPENING_TIME}", "%Y-%m-%d %H:%M")
+        closing_time = datetime.strptime(f"{date} {CLOSING_TIME}", "%Y-%m-%d %H:%M")
+
+        # Get existing appointments for the day
+        existing_appointments = (
+        db.session.query(Appointment)
+        .filter_by(test_id= test_id, location_id= location_id, is_done= 0)
+        .filter(func.date(Appointment.time) == date)
+        .all()
     )
-    booked_periods = set(appointment['time'] for appointment in existing_appointments)
-    available_periods = []
-    current_time = opening_time
-    time_slot = timedelta(minutes=test_duration)
 
-    while current_time + time_slot <= closing_time:
-        if current_time.strftime("%Y-%m-%d %H:%M") not in booked_periods:
-            available_periods.append(current_time.strftime("%H:%M"))
-        current_time += time_slot
+    
+        booked_periods = set(appointment.time for appointment in existing_appointments)
+        available_periods = []
+        current_time = opening_time
+        time_slot = timedelta(minutes= test_duration)
 
-    return render_template("appointments/periods.jinja", periods=available_periods)
+        while current_time + time_slot <= closing_time:
+            if current_time.strftime("%Y-%m-%d %H:%M") not in booked_periods:
+                available_periods.append(current_time.strftime("%H:%M"))
+            current_time += time_slot
 
-
-
-@bp.route("/clear")
-@login_required
-def clear():
-    count = db.execute("SELECT COUNT(*) FROM appointments WHERE user_id = ? AND done = 0;", session["user_id"])[0]['COUNT(*)']
-    db.execute("UPDATE stats SET value = value - ? WHERE name = 'current_appointments';", count)
-    db.execute("DELETE FROM appointments WHERE user_id = ? AND done = 0;", session["user_id"])
-    flash("Appointments cleared successfully!")
-    return redirect("/appointments")
+        return render_template("appointments/periods.jinja", periods= available_periods)
+    
+    except Exception as e:
+        return render_template("error.jinja",message=f"An unexpected error occurred.", code=500), 500
 
 
+# remove need to be POST or DELETE not GET request
 @bp.route("/remove")
 @login_required
 def remove():
-    db.execute(
-        "DELETE FROM appointments WHERE id = ? AND user_id = ?;",
-        request.args.get("id"),
-        session["user_id"] # important to prevent users from deleting other users' appointments
-    )
-    db.execute("UPDATE stats SET value = value - 1 WHERE name = 'current_appointments';")
-    flash("Appointment removed successfully!")
-    return redirect("/appointments")
+    try:
+        appointment_id = request.args.get("id")
+        appointment = Appointment.query.filter_by(id = appointment_id, user_id = current_user.id).first()
+
+        if appointment:
+            db.session.delete(appointment)
+            stmt = (
+                update(Stats)
+                .where(Stats.name == 'current_appointments')
+                .values(value = Stats.value - 1)
+                )
+            db.session.execute(stmt)
+            db.session.commit()
+            flash("Appointment removed successfully!")
+            return redirect("/appointments")
+        else:
+            return render_template("error.jinja", message="Invalid Appointment.", code=500), 500
+        
+
+    except Exception as e:
+        db.session.rollback()
+        return render_template("error.jinja",message=f"An unexpected error occurred.", code=500), 500
+    
+
+
+    
+
+
+
+   
+    
+    

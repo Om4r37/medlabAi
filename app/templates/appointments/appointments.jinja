@@ -11,7 +11,7 @@ Appointments
 <script src="static/scripts/TableFilter/tablefilter.js"></script>
 
 <h2>Appointments</h2>
-{% if rows %}
+{% if appointments %}
 <div class="table-container">
     <table class="sortable">
         <thead>
@@ -23,14 +23,16 @@ Appointments
             </tr>
         </thead>
         <tbody>
-            {% for row in rows %}
+            {% for appointment in appointments %}
             <tr>
-                <td>{{ row.time }}</td>
-                <td>{{ row.location }}</td>
-                <td>{{ row.type }}</td>
-                <td><a href="/remove?id={{row.id}}">
+                <td>{{ appointment.time }}</td>
+                <td>{{ appointment.location.name }}</td>
+                <td>{{ appointment.test.name }}</td>
+                <td>
+                    <a href="/remove?id={{appointment.id}}">
                         <img src="/static/pics/cancel.svg" style="height: 1rem;">
-                    </a></td>
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -61,6 +63,12 @@ Appointments
 {% else %}
 You have no appointments.
 {% endif %}
+
 <br><a href="/schedule"><button class="blue btn" style="margin-top: 1rem;">New Appointment</button></a>
-{% if rows %}<br><a href="/clear"><button class="red btn">Delete All Appointments</button></a>{% endif %}
+
+
+
+
+
+
 {% endblock %}

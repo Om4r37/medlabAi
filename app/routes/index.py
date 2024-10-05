@@ -1,106 +1,102 @@
-from flask import Blueprint, redirect, render_template, request, session, flash
-from app.database import db
+from flask import Blueprint, redirect, render_template, request, flash
+from flask_login import current_user, login_required
+from sqlalchemy import  and_
+from app import db
 from datetime import datetime
-from app.utils import login_required
+from app.models import Appointment, ResultField, User
+
 
 bp = Blueprint("index", __name__)
 current_year = datetime.now().year
 
 
 def dashboard():
-    query = "SELECT COUNT(*) FROM users WHERE "
-    params = {
-        3: "gender = 1",
-        4: "gender = 0",
-        5: "married = 1",
-        6: "smoke = 3",
-        7: "smoke = 2",
-        8: "smoke = 1",
-        9: "heart_disease = 1",
-        10: "exng = 1",
-        11: "residence = 0",
-        12: "residence = 1",
-        13: "work = 0",
-        14: "work = 1",
-        15: "work = 2",
-        16: "work = 3",
-        17: "work = 4",
-        18: f"{current_year} - birth_year < 16",
-        19: f"{current_year} - birth_year > 15 AND {current_year} - birth_year < 31",
-        20: f"{current_year} - birth_year > 30 AND {current_year} - birth_year < 46",
-        21: f"{current_year} - birth_year > 45 AND {current_year} - birth_year < 61",
-        22: f"{current_year} - birth_year > 60 AND {current_year} - birth_year < 76",
-        23: f"{current_year} - birth_year > 75",
+    filters = {
+
+    3: User.gender == 1,  # Male
+    4: User.gender == 0,  # Female
+    5: User.is_married == 1,  # Married
+    6: User.smoke == 3,  # Current Smoker
+    7: User.smoke == 2,  # Former Smoker
+    8: User.smoke == 1,  # Never Smoked
+    9: User.heart_disease == 1,  # Heart Disease
+    10: User.exng == 1,  # Exercise Induced Angina (exng)
+    11: User.residence == 0,  # Rural
+    12: User.residence == 1,  # Urban
+    13: User.work == 0,  # Never Worked
+    14: User.work == 1,  # Private Work
+    15: User.work == 2,  # Self Employed
+    16: User.work == 3,  # Government Work
+    17: User.work == 4,  # Children (Assuming this is a category)
+    18: current_year - User.birth_year < 16,  # Age 0-15
+    19: and_(current_year - User.birth_year > 15, current_year - User.birth_year < 31),  # Age 16-30
+    20: and_(current_year - User.birth_year > 30, current_year - User.birth_year < 46),  # Age 31-45
+    21: and_(current_year - User.birth_year > 45, current_year - User.birth_year < 61),  # Age 46-60
+    22: and_(current_year - User.birth_year > 60, current_year - User.birth_year < 76),  # Age 61-75
+    23: current_year - User.birth_year > 75,  # Age 76+
     }
 
-    # for k, v in params.items():
-    #     stats[k]["value"] = db.execute(query + v + ";")[0]["COUNT(*)"]
-    stats = db.execute("SELECT * FROM stats;")
-    return render_template("admin/dashboard.jinja", stats=stats)
+    general_stats = {
+    0: Appointment.query.count(),  
+    1: ResultField.query.count(), 
+    2: User.query.count() 
+    }
+
+    stats = {}
+    stats.update(general_stats)  # add general_stats to stats
+
+    for key, condition in filters.items():
+        count = User.query.filter(condition).count()
+        stats[key] = count 
+
+    return render_template("admin/dashboard.jinja", stats = stats, user = current_user)
 
 
 @bp.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    if request.method == "GET":
-        if session["user_id"] == 1:
-            return dashboard()
-        user_info = db.execute("SELECT * FROM users WHERE id = ?;", session["user_id"])
-        user_info = user_info[0] if user_info else {}
-        return render_template(
-            "index.jinja", user_info=user_info, current_year=current_year
-        )
+    try:
+        if  request.method == "GET":
+            if current_user.id == 1:
+                return dashboard()
+            
+            return render_template(
+                "index.jinja", user= current_user, current_year= current_year
+            )
+        
 
-    for i in ("birth_year", "height", "weight", "pregnancies"):
-        value = request.form.get(i)
-        if value != None and value != "":
-            try:
-                value = int(value)
-            except ValueError:
-                return render_template("error.jinja", message="invalid " + i, code=400)
-            db.execute(
-                "UPDATE users SET ? = ? WHERE id = ?;",
-                i,
-                value,
-                session["user_id"],
-            )
-    for i in ("full_name", "email"):
-        if value := request.form.get(i):
-            db.execute(
-                "UPDATE users SET ? = ? WHERE id = ?;",
-                i,
-                value,
-                session["user_id"],
-            )
-    for i in ("gender", "married", "residence"):
-        if v := request.form.get(i):
-            db.execute(
-                "UPDATE users SET ? = ? WHERE id = ?;", i, v == "1", session["user_id"]
-            )
-    for i in ("exng", "heart_disease"):
-        db.execute(
-            "UPDATE users SET ? = ? WHERE id = ?;",
-            i,
-            1 if request.form.get(i) else 0,
-            session["user_id"],
-        )
-    for i in ("work", "smoke"):
-        db.execute(
-            "UPDATE users SET ? = ? WHERE id = ?;",
-            i,
-            request.form.get(i),
-            session["user_id"],
-        )
-    flash("Information Updated Successfully!")
-    return redirect("/")
+        for field in ("birth_year", "height", "weight","num_of_children","work", "smoke"):
+            value = request.form.get(field)
+            if value != None and value != "":
+                try:
+                    value = int(value)
+                except ValueError:
+                    return render_template("error.jinja", message="invalid " + field, code=400)
+                
+                # current_user.field = value
+                setattr(current_user, field, value)
 
 
-@bp.route("/delete")
-@login_required
-def delete():
-    db.execute(
-        "UPDATE users SET (full_name, email, gender, married, residence, birth_year, height, weight, pregnancies, exng, heart_disease, work, smoke) = (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL) WHERE id = ?;",
-        session["user_id"],
-    )
-    flash("User Data Deleted!")
-    return redirect("/")
+        for field in ("full_name", "email"):
+            if value := request.form.get(field):
+                setattr(current_user, field, value)
+
+        for field in ("gender","is_married", "residence"):
+            if value := request.form.get(field):
+                setattr(current_user, field, 1)
+           
+
+        for field in ("exng", "heart_disease"):
+            if value := request.form.get(field):
+                setattr(current_user, field, 1)
+            else:
+                setattr(current_user, field, 0)
+
+        db.session.commit()
+        flash("Information Updated Successfully!")
+        return redirect("/")
+    
+    except Exception as e:
+        return render_template("error.jinja", message=f"An unexpected error occurred", code=500), 500
+
+

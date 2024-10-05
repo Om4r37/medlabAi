@@ -1,47 +1,62 @@
-from flask import Blueprint, redirect, render_template, request, session, flash
+from flask import Blueprint, redirect, render_template, request, flash
+from flask_login import current_user, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from app.database import db
+from app import db
+from app.models import User
 
 bp = Blueprint("auth", __name__)
 
 
 @bp.route("/register", methods=["GET", "POST"])
 def register():
-    """Register user"""
-    if request.method == "GET":
-        return render_template("auth/register.jinja")
+    try:
+        if current_user.is_authenticated:
+            return redirect('/')
 
-    username = request.form.get("username")
-    password = request.form.get("password")
-    verification = request.form.get("confirmation")
+        if request.method == "GET":
+            return render_template("auth/register.jinja")
 
-    if not username:
-        return render_template("error.jinja", message="must provide username", code=400)
+        fullname = request.form.get("fullname")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        verification = request.form.get("confirmation")
 
-    if not password:
-        return render_template("error.jinja", message="must provide password", code=400)
+        if not fullname:
+            return render_template("error.jinja", message="must provide fullrname", code=400)
+        
+        if not email:
+            return render_template("error.jinja", message="email provide password", code=400)
 
-    if password != verification:
-        return render_template("error.jinja", message="passwords don't match", code=400)
+        if not password:
+            return render_template("error.jinja", message="must provide password", code=400)
 
-    if db.execute("SELECT * FROM users WHERE username = ?;", username):
-        return render_template(
-            "error.jinja", message="username already taken", code=400
-        )
+        if password != verification:
+            return render_template("error.jinja", message="passwords don't match", code=400)
+        
 
-    db.execute(
-        "INSERT INTO users (username, hash) VALUES (?, ?);",
-        username,
-        generate_password_hash(password),
-    )
-    user = db.execute("SELECT * FROM users WHERE username = ?;", username)[0]
-    db.execute("UPDATE stats SET value = value + 1 WHERE name = 'users_count';")
-    session["user_id"] = user["id"]
-    session["user_name"] = user["username"]
-    flash("Account Created Successfully!")
-    return redirect("/")
+        exsisting_user = User.query.filter_by(email = email).first()
+        # this msg could be changed for security concern
+        if exsisting_user:
+            return render_template(
+                "error.jinja", message="Account Already exist", code=400
+            )
+        
+        hashed_password = generate_password_hash(password)
+
+        user = User(fullname= fullname, email= email, password= hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash("Account Created Successfully!")
+        return redirect("/")
+    
+    except Exception as e:
+        return render_template("error.jinja", message=f"An unexpected error occurred", code=500), 500
+    
 
 
+
+
+'''
 @bp.route("/change_password", methods=["GET", "POST"])
 def change_password():
     """Change user password"""
@@ -66,41 +81,46 @@ def change_password():
     )
     flash("Password Changed Successfully!")
     return redirect("/")
+'''
+
 
 
 @bp.route("/login", methods=["GET", "POST"])
 def login():
-    """Log user in"""
-    session.clear()  # Forget any user_id
+    try:
+        if current_user.is_authenticated:
+            return redirect('/')
 
-    if request.method == "GET":
+        if request.method == "GET":
+            return render_template("auth/login.jinja")
+        
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        if not email:
+            return render_template("error.jinja", message="must provide email", code=403)
+
+        if not password:
+            return render_template("error.jinja", message="must provide password", code=403)
+        
+        user = User.query.filter_by(email = email).first()
+
+        if user and check_password_hash(user.password, password):
+            login_user(user) 
+            return redirect("/")
+    
+        flash("Invalid email or password")
         return render_template("auth/login.jinja")
-
-    if not request.form.get("username"):
-        return render_template("error.jinja", message="must provide username", code=403)
-
-    if not request.form.get("password"):
-        return render_template("error.jinja", message="must provide password", code=403)
-
-    rows = db.execute(
-        "SELECT * FROM users WHERE username = ?;", request.form.get("username")
-    )
-
-    if len(rows) != 1 or not check_password_hash(
-        rows[0]["hash"], request.form.get("password")
-    ):
-        return render_template(
-            "error.jinja", message="invalid username and/or password", code=403
-        )
-
-    session["user_id"] = rows[0]["id"]
-    session["user_name"] = rows[0]["username"]
-    flash("Logged in as " + session["user_name"])
-    return redirect("/")
-
+    
+    except Exception as e:
+        return render_template("error.jinja", message=f"An unexpected error occurred", code=500), 500
+        
 
 @bp.route("/logout")
 def logout():
-    """Log user out"""
-    session.clear()
-    return redirect("/")
+    try:
+        logout_user()
+        return redirect("/login")
+    
+    except Exception as e:
+        return render_template("error.jinja", message="An unexpected error occurred", code=500), 500

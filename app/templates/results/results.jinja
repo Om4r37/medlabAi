@@ -11,7 +11,7 @@ Results
 <script src="static/scripts/TableFilter/tablefilter.js"></script>
 
 <h2>Results</h2>
-{% if rows %}
+{% if appointments %}
 <div class="table-container">
     <table class="sortable">
         <thead>
@@ -23,12 +23,12 @@ Results
             </tr>
         </thead>
         <tbody>
-            {% for row in rows %}
+            {% for appointment in appointments%}
             <tr>
-                <td>{{ row.time }}</td>
-                <td>{{ row.location }}</td>
-                <td>{{ row.type }}</td>
-                <td><a href="/result?id={{row.id}}">
+                <td>{{ appointment.time }}</td>
+                <td>{{ appointment.location.name }}</td>
+                <td>{{ appointment.test.type }}</td>
+                <td><a href="/result?id={{appointment.id}}">
                         <img src="/static/pics/open.svg" style="height: 1rem;">
                     </a></td>
             </tr>

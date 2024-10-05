@@ -11,7 +11,7 @@ Results
 <script src="static/scripts/TableFilter/tablefilter.js"></script>
 
 <h2>Results</h2>
-{% if rows %}
+{% if appointments %}
 <div class="table-container" style="max-width: 760px;">
     <table class="sortable">
         <thead>
@@ -24,17 +24,17 @@ Results
             </tr>
         </thead>
         <tbody>
-            {% for row in rows %}
+            {% for appointment in appointments %}
             <tr>
                 <td>
-                    <a href="/user?id={{row.user_id}}&tab=2" style="color: black;">
-                        {% if row.name %}{{row.name}}{% else %}{{row.username}}{%endif%}
+                    <a href="/user?id={{appointment.user_id}}&tab=2" style="color: black;">
+                        {% if appointment.user.fullname %}{{appointment.user.fullname}}{%endif%}
                     </a>
                 </td>
-                <td>{{ row.time }}</td>
-                <td>{{ row.location }}</td>
-                <td>{{ row.type }}</td>
-                <td><a href="/result?id={{row.id}}">
+                <td>{{ appointment.time }}</td>
+                <td>{{ appointment.location.name }}</td>
+                <td>{{ appointment.test.name }}</td>
+                <td><a href="/result?id={{appointment.id}}">
                         <img src="/static/pics/open.svg" style="height: 1rem;">
                     </a></td>
             </tr>
@@ -42,6 +42,7 @@ Results
         </tbody>
     </table>
 </div>
+
 <script data-config>
     // TableFilter settings
     var tfConfig = {

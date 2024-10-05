@@ -1,10 +1,6 @@
-*.db
-flask_session
 __pycache__
 .venv
-data
-models
-users.sql
+
 
 # Editors configeration
 .idx
