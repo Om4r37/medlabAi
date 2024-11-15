@@ -9,5 +9,5 @@ curl https://github.com/Om4r37/medlabAi/releases/download/v0.9/users.sql -UseBas
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-python run.py
 start http://localhost:1337/
+python run.py
