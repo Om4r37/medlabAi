@@ -10,3 +10,4 @@ python3.10 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python3.10 run.py
+xdg-open http://localhost:1337/
